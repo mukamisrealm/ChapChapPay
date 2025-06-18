@@ -2,7 +2,7 @@
 $host = 'localhost';
 $user = 'root';
 $password = '';
-$dbname = 'chapchappay_db';
+$dbname = 'chapchap_db';
 
 $conn = new mysqli($host, $user, $password, $dbname);
 
