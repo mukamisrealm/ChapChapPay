@@ -19,9 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['name'] = $result['name'];
 
         // Redirect to dashboard
-        if ($row['role'] == 'Member') {
+        if ($user['role'] == 'Member') {
             header("Location: ../dashboard/member_dashboard.php");
-        } elseif ($row['role'] == 'Treasurer') {
+        } elseif ($user['role'] == 'Treasurer') {
             header("Location: ../dashboard/treasurer_dashboard.php");
         }
         exit();
