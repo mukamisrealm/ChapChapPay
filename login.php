@@ -19,10 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['name'] = $result['name'];
 
         // Redirect to dashboard
-        header("Location: dashboard.php");
+        if ($row['role'] == 'Member') {
+            header("Location: ../dashboard/member_dashboard.php");
+        } elseif ($row['role'] == 'Treasurer') {
+            header("Location: ../dashboard/treasurer_dashboard.php");
+        }
         exit();
     } else {
-        $error = "Invalid email or password.";
+        echo "Invalid credentials.";
     }
 }
 ?>
