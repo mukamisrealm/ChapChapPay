@@ -1,5 +1,7 @@
 <?php
 session_start();
+var_dump($_SESSION);
+exit();
 if (!isset($_SESSION['name'])) {
     // User is not logged in; redirect to login
     header("Location: login.php");
