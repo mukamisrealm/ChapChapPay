@@ -2,10 +2,10 @@
 session_start();
 if (!isset($_SESSION['name'])) {
     // User is not logged in; redirect to login
-    header("Location: ../auth/login.php");
+    header("Location: login.php");
     exit();
 }
-$username = $_SESSION['name'];
+$name = $_SESSION['name'];
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +29,7 @@ $username = $_SESSION['name'];
 </nav>
 
 <div class="container mt-4">
-  <h2>Welcome, <?php echo htmlspecialchars($username); ?>!</h2>
+  <h2>Welcome, <?php echo htmlspecialchars($name); ?>!</h2>
 
   <div class="row">
     <div class="col-md-4 mb-3">
