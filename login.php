@@ -1,11 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-include 'db.php';
 session_start();
+include 'db.php';
 
 $error = '';
 
@@ -25,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['role'] = $result['role'];
         $_SESSION['name'] = $result['name'];
 
-        
         // Redirect to dashboard
         if ($result['role'] === 'Member') {
             header("Location: memberdashboard.php");
