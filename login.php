@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 include 'db.php';
 
@@ -22,9 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Redirect to dashboard
         if ($result['role'] === 'Member') {
+            echo "Redirecting to Member dashboard..."; 
             header("Location: memberdashboard.php");
             exit();
         } elseif ($result['role'] === 'Treasurer') {
+             echo "Redirecting to Treasurer dashboard...";
             header("Location: treasurerdashboard.php");
             exit();
         }
