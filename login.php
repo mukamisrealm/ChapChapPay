@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
   <h2>User Login</h2>
   <?php if  (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
-  <form method="POST">
+  <form method="POST" action="login.php">
     <input type="email" name="email" required placeholder="Email"><br>
     <input type="password" name="password" required placeholder="Password"><br>
     <button type="submit">Login</button>
