@@ -7,6 +7,12 @@ if (!isset($_SESSION['name'])) {
 }
 $name = $_SESSION['name'];
 ?>
+ <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
