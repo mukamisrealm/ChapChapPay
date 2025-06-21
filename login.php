@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Redirect to dashboard
         if ($result['role'] === 'Member') {
-            header("Location: member_dashboard.php");
+            header("Location: memberdashboard.php");
         } elseif ($result['role'] === 'Treasurer') {
-            header("Location: treasurer_dashboard.php");
+            header("Location: treasurerdashboard.php");
         }
         exit();
     } else {
