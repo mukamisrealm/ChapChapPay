@@ -7,6 +7,8 @@ error_reporting(E_ALL);
 include 'db.php';
 session_start();
 
+$error = '';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $password_input = $_POST['password'];
@@ -27,12 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Redirect to dashboard
         if ($result['role'] === 'Member') {
             header("Location: memberdashboard.php");
+            exit();
         } elseif ($result['role'] === 'Treasurer') {
             header("Location: treasurerdashboard.php");
+            exit();
         }
-        exit();
     } else {
-        echo "Invalid credentials.";
+        $error = "Invalid credentials.";
     }
 }
 ?>
