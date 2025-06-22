@@ -26,14 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['name'] = $result['name'];
 
         // Redirect based on role
-        if (strtolower($result['role']) === 'member') {
+        if ($result['role'] === 'Member') {
             header("Location: memberdashboard.php");
             exit();
-        } elseif (strtolower($result['role']) === 'treasurer') {
+        } elseif ($result['role'] === 'Treasurer') {
             header("Location: treasurerdashboard.php");
             exit();
+        } elseif ($result['role'] === 'admin') {
+            header("Location: admindashboard.php");
+            exit();
         } else {
-            $error = "Unknown role.";
+            $error = "Unknown role. Contact system admin.";
         }
     } else {
         $error = "Invalid credentials.";
