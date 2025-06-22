@@ -1,10 +1,14 @@
 <?php
-ob_start();
+// Start session first thing
 session_start();
+
+// Include DB connection
 include 'db.php';
 
+// Initialize error message
 $error = '';
 
+// Process login form
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $password_input = $_POST['password'];
@@ -16,20 +20,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $stmt->get_result()->fetch_assoc();
 
     if ($result && password_verify($password_input, $result['password'])) {
-        // Correct login – set session
+        // Set session variables
         $_SESSION['user_id'] = $result['id'];
         $_SESSION['role'] = $result['role'];
         $_SESSION['name'] = $result['name'];
 
-        // Redirect to dashboard
-        if ($result['role'] === 'Member') {
-            echo "Redirecting to Member dashboard..."; 
+        // Redirect based on role
+        if (strtolower($result['role']) === 'member') {
             header("Location: memberdashboard.php");
             exit();
-        } elseif ($result['role'] === 'Treasurer') {
-             echo "Redirecting to Treasurer dashboard...";
+        } elseif (strtolower($result['role']) === 'treasurer') {
             header("Location: treasurerdashboard.php");
             exit();
+        } else {
+            $error = "Unknown role.";
         }
     } else {
         $error = "Invalid credentials.";
@@ -38,17 +42,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <title>Login - ChapChapPay</title>
 </head>
 <body>
-  <h2>User Login</h2>
-  <?php if  (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
-  <form method="POST" action="login.php">
-    <input type="email" name="email" required placeholder="Email"><br>
-    <input type="password" name="password" required placeholder="Password"><br>
-    <button type="submit">Login</button>
-  </form>
+    <h2>User Login</h2>
+    <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
+    <form method="POST" action="login.php">
+        <input type="email" name="email" required placeholder="Email"><br>
+        <input type="password" name="password" required placeholder="Password"><br>
+        <button type="submit">Login</button>
+    </form>
 </body>
 </html>
+
