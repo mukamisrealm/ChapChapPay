@@ -1,5 +1,11 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 session_start();
+
+var_dump($_SESSION);  // TEMPORARY: See what's in session
+exit();
+//session_start();
 if (!isset($_SESSION['name']) || $_SESSION['role'] !== 'Treasurer') {
     // Not logged in or not a Treasurer
     header("Location: login.php");
