@@ -1,44 +1,31 @@
 <?php
-include 'db.php';
-session_start();
+// Handle the form when it's submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'] ?? null;
+    $password = $_POST['password'] ?? null;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = trim($_POST['email']);
-    $password_input = $_POST['password'];
-
-    // Fetch user by email
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result()->fetch_assoc();
-
-    if ($result && password_verify($password_input, $result['password'])) {
-        // Correct login – set session
-        $_SESSION['user_id'] = $result['id'];
-        $_SESSION['role'] = $result['role'];
-        $_SESSION['name'] = $result['name'];
-
-        // Redirect to dashboard
-        header("Location: dashboard.php");
-        exit();
-    } else {
-        $error = "Invalid email or password.";
-    }
+    // Just display submitted info for now (for testing)
+    echo "<h3>Login Submitted</h3>";
+    echo "Email: " . htmlspecialchars($email) . "<br>";
+    echo "Password: " . htmlspecialchars($password) . "<br>";
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Login Page</title>
 </head>
 <body>
-  <h2>User Login</h2>
-  <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
-  <form method="POST" action="login.php">
-    <input type="email" name="email" required placeholder="Email"><br>
-    <input type="password" name="password" required placeholder="Password"><br>
-    <button type="submit">Login</button>
-  </form>
+    <h2>User Login</h2>
+    <form method="POST" action="login.php">
+        <label>Email:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" name="password" required><br><br>
+
+        <button type="submit">Login</button>
+    </form>
 </body>
 </html>
