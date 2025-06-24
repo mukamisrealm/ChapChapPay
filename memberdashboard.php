@@ -1,11 +1,13 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
+//var_dump($_SESSION);
+//exit();
+if (!isset($_SESSION['name'])) {
     // User is not logged in; redirect to login
-    header("Location: ../auth/login.php");
+    header("Location: login.php");
     exit();
 }
-$username = $_SESSION['username'];
+$name = $_SESSION['name'];
 ?>
 
 <!DOCTYPE html>
@@ -23,13 +25,13 @@ $username = $_SESSION['username'];
   <div class="container-fluid">
     <a class="navbar-brand" href="#">ChapChapPay</a>
     <div class="d-flex">
-      <a href="#" class="btn btn-outline-light">Logout</a>
+<a href="../logout.php" class="btn btn-outline-light">Logout</a>
     </div>
   </div>
 </nav>
 
 <div class="container mt-4">
-  <h2>Welcome, <?php echo htmlspecialchars($username); ?>!</h2>
+  <h2>Welcome, <?php echo htmlspecialchars($name); ?>!</h2>
 
   <div class="row">
     <div class="col-md-4 mb-3">
@@ -37,7 +39,7 @@ $username = $_SESSION['username'];
         <div class="card-body">
           <h5 class="card-title">My Contributions</h5>
           <p class="card-text">View your contribution history.</p>
-          <a href="#" class="btn btn-primary">View Contributions</a>
+          <a href="../view_contrib.php" class="btn btn-primary">View Contributions</a>
         </div>
       </div>
     </div>
@@ -47,7 +49,7 @@ $username = $_SESSION['username'];
         <div class="card-body">
           <h5 class="card-title">My Fines</h5>
           <p class="card-text">Check fines issued to you.</p>
-          <a href="#" class="btn btn-primary">View Fines</a>
+          <a href="../view_fine.php" class="btn btn-primary">View Fines</a>
         </div>
       </div>
     </div>
@@ -57,7 +59,7 @@ $username = $_SESSION['username'];
         <div class="card-body">
           <h5 class="card-title">My Payouts</h5>
           <p class="card-text">View your payouts.</p>
-          <a href="#" class="btn btn-primary">View Payouts</a>
+          <a href="../view_payout.php" class="btn btn-primary">View Payouts</a>
         </div>
       </div>
     </div>
