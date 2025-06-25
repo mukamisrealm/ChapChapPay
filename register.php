@@ -3,7 +3,6 @@ session_start();
 include 'db.php';
 
 $error = '';
-$success = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = trim($_POST['name']);
@@ -12,8 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $confirm_password = $_POST['confirm_password'];
     $role = $_POST['role'];
 
-    // Check if passwords match
-    if ($password_input !== $confirm_password) {
+    // Basic email format check
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = "Invalid email format.";
+    } 
+    elseif ($password_input !== $confirm_password) {
         $error = "Passwords do not match.";
     } else {
         // Check if email already exists
@@ -24,20 +26,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($stmt->num_rows > 0) {
             $error = "Email already registered.";
+            $stmt->close();
         } else {
+            $stmt->close(); // Close before reuse
+
             // Hash password
             $hashed_password = password_hash($password_input, PASSWORD_DEFAULT);
 
-            // Insert user
+            // Insert new user
             $stmt = $conn->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
             $stmt->bind_param("ssss", $name, $email, $hashed_password, $role);
 
             if ($stmt->execute()) {
-                // Redirect to login page after successful registration
-                header("Location: login.php");
+                $stmt->close();
+                header("Location: login.php?registered=1");
                 exit();
             } else {
                 $error = "Registration failed. Please try again.";
+                $stmt->close();
             }
         }
     }
@@ -98,12 +104,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" class="form-control" id="password" name="password" required>
+        <input type="password" class="form-control" id="password" name="password" autocomplete="new-password" required>
       </div>
 
       <div class="form-group">
         <label for="confirm_password">Confirm Password:</label>
-        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+        <input type="password" class="form-control" id="confirm_password" name="confirm_password" autocomplete="new-password" required>
       </div>
 
       <div class="form-group">
@@ -122,4 +128,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 </body>
 </html>
+
 
