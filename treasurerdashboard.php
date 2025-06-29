@@ -63,7 +63,7 @@ $name = $_SESSION['name'];
         <div class="card-body">
           <h5 class="card-title">My Contribution Summary</h5>
           <p class="card-text">View your contribution records.</p>
-          <a href="../contrib_summary.php" class="btn btn-success">View Contribution Summary</a>
+          <a href="../view_contrib.php" class="btn btn-success">View Contribution Summary</a>
         </div>
       </div>
     </div>
