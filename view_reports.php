@@ -2,73 +2,69 @@
 session_start();
 include 'db.php';
 
-// Restrict if not logged in
+// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: register_login.php");
     exit();
 }
 
 $role = $_SESSION['role'];
-$name = $_SESSION['name'];
-
-// Fetch contributions summary
-$contribs = $conn->query("SELECT users.name, SUM(contributions.amount) AS total_amount FROM contributions JOIN users ON contributions.user_id = users.id GROUP BY users.id");
-
-// Fetch fines summary
-$fines = $conn->query("SELECT users.name, SUM(fines.amount) AS total_fines FROM fines JOIN users ON fines.user_id = users.id GROUP BY users.id");
-
-// Fetch payouts summary
-$payouts = $conn->query("SELECT users.name, payout_date, amount, status FROM payouts JOIN users ON payouts.user_id = users.id ORDER BY payout_date ASC");
+$user_id = $_SESSION['user_id'];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Reports Summary</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>View Reports</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body class="bg-light">
 
 <div class="container mt-5">
-  <h2 class="mb-4">📊 System Reports</h2>
-  <p>Welcome, <?php echo htmlspecialchars($name); ?> (<?php echo $role; ?>)</p>
+  <h2 class="mb-4">📊 Chama Report</h2>
 
-  <!-- Contributions Report -->
+  <!-- Contributions Summary -->
   <div class="card mb-4">
-    <div class="card-header bg-primary text-white">💰 Contributions Summary</div>
+    <div class="card-header bg-success text-white">💰 Contributions Summary</div>
     <div class="card-body">
-      <table class="table table-bordered table-hover">
-        <thead class="table-light">
-          <tr><th>Member</th><th>Total Contributions (KES)</th></tr>
-        </thead>
+      <table class="table table-bordered">
+        <thead><tr><th>Name</th><th>Amount</th><th>Date</th><th>Description</th></tr></thead>
         <tbody>
-          <?php while ($row = $contribs->fetch_assoc()): ?>
-          <tr>
-            <td><?php echo htmlspecialchars($row['name']); ?></td>
-            <td><?php echo number_format($row['total_amount']); ?></td>
-          </tr>
-          <?php endwhile; ?>
+        <?php
+          $sql = "SELECT users.name, amount, contribution_date, description FROM contributions JOIN users ON contributions.user_id = users.id ORDER BY contribution_date DESC";
+          $res = $conn->query($sql);
+          while($row = $res->fetch_assoc()): ?>
+            <tr>
+              <td><?= htmlspecialchars($row['name']) ?></td>
+              <td><?= htmlspecialchars($row['amount']) ?></td>
+              <td><?= htmlspecialchars($row['contribution_date']) ?></td>
+              <td><?= htmlspecialchars($row['description']) ?></td>
+            </tr>
+        <?php endwhile; ?>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Fines Report -->
+  <!-- Fines Summary -->
   <div class="card mb-4">
-    <div class="card-header bg-warning">⚠️ Fines Summary</div>
+    <div class="card-header bg-danger text-white">⚠️ Fines Summary</div>
     <div class="card-body">
-      <table class="table table-bordered table-hover">
-        <thead class="table-light">
-          <tr><th>Member</th><th>Total Fines (KES)</th></tr>
-        </thead>
+      <table class="table table-bordered">
+        <thead><tr><th>Name</th><th>Amount</th><th>Date</th><th>Reason</th></tr></thead>
         <tbody>
-          <?php while ($row = $fines->fetch_assoc()): ?>
-          <tr>
-            <td><?php echo htmlspecialchars($row['name']); ?></td>
-            <td><?php echo number_format($row['total_fines']); ?></td>
-          </tr>
-          <?php endwhile; ?>
+        <?php
+          $sql = "SELECT users.name, amount, fine_date, reason FROM fines JOIN users ON fines.user_id = users.id ORDER BY fine_date DESC";
+          $res = $conn->query($sql);
+          while($row = $res->fetch_assoc()): ?>
+            <tr>
+              <td><?= htmlspecialchars($row['name']) ?></td>
+              <td><?= htmlspecialchars($row['amount']) ?></td>
+              <td><?= htmlspecialchars($row['fine_date']) ?></td>
+              <td><?= htmlspecialchars($row['reason']) ?></td>
+            </tr>
+        <?php endwhile; ?>
         </tbody>
       </table>
     </div>
@@ -76,30 +72,55 @@ $payouts = $conn->query("SELECT users.name, payout_date, amount, status FROM pay
 
   <!-- Payout Schedule -->
   <div class="card mb-4">
-    <div class="card-header bg-success text-white">📅 Payout Schedule</div>
+    <div class="card-header bg-primary text-white">📤 Payout Schedule</div>
     <div class="card-body">
-      <table class="table table-bordered table-hover">
-        <thead class="table-light">
-          <tr><th>Member</th><th>Payout Date</th><th>Amount (KES)</th><th>Status</th></tr>
-        </thead>
+      <table class="table table-bordered">
+        <thead><tr><th>Name</th><th>Payout Date</th><th>Amount</th><th>Status</th></tr></thead>
         <tbody>
-          <?php while ($row = $payouts->fetch_assoc()): ?>
-          <tr>
-            <td><?php echo htmlspecialchars($row['name']); ?></td>
-            <td><?php echo htmlspecialchars($row['payout_date']); ?></td>
-            <td><?php echo number_format($row['amount']); ?></td>
-            <td><?php echo ucfirst($row['status']); ?></td>
-          </tr>
-          <?php endwhile; ?>
+        <?php
+          $sql = "SELECT users.name, payout_date, amount, status FROM payouts JOIN users ON payouts.user_id = users.id ORDER BY payout_date ASC";
+          $res = $conn->query($sql);
+          while($row = $res->fetch_assoc()): ?>
+            <tr>
+              <td><?= htmlspecialchars($row['name']) ?></td>
+              <td><?= htmlspecialchars($row['payout_date']) ?></td>
+              <td><?= htmlspecialchars($row['amount']) ?></td>
+              <td><?= htmlspecialchars($row['status']) ?></td>
+            </tr>
+        <?php endwhile; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Member Requests -->
+  <div class="card mb-4">
+    <div class="card-header bg-warning text-dark">📌 Member Requests</div>
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead><tr><th>Name</th><th>Request Type</th><th>Date</th><th>Status</th></tr></thead>
+        <tbody>
+        <?php
+          $sql = "SELECT users.name, request_type, request_date, status FROM requests JOIN users ON requests.user_id = users.id ORDER BY request_date DESC";
+          $res = $conn->query($sql);
+          while($row = $res->fetch_assoc()): ?>
+            <tr>
+              <td><?= htmlspecialchars($row['name']) ?></td>
+              <td><?= htmlspecialchars($row['request_type']) ?></td>
+              <td><?= htmlspecialchars($row['request_date']) ?></td>
+              <td><?= htmlspecialchars($row['status']) ?></td>
+            </tr>
+        <?php endwhile; ?>
         </tbody>
       </table>
     </div>
   </div>
 
   <div class="text-center">
-    <a href="<?php echo ($role === 'treasurer') ? 'treasurerdashboard.php' : 'memberdashboard.php'; ?>" class="btn btn-secondary">⬅ Back to Dashboard</a>
+    <a href="<?php echo ($role === 'treasurer') ? 'treasurerdashboard.php' : 'memberdashboard.php'; ?>" class="btn btn-secondary">Back to Dashboard</a>
   </div>
 </div>
 
 </body>
 </html>
+
