@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $date = $_POST['date'];
     $description = $_POST['description'];
 
-    $stmt = $conn->prepare("INSERT INTO contributions (user_id, amount, date, description) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO contributions (user_id, amount, contribution_date, description) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("idss", $member_id, $amount, $date, $description);
 
     if ($stmt->execute()) {
