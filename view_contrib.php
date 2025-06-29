@@ -1,15 +1,26 @@
 <?php
 session_start();
-include 'db.php';
-
-// Check if user is logged in
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['role'])) {
+if (!isset($_SESSION['name'])) {
     header("Location: register_login.php");
     exit();
 }
 
+// Include DB
+include 'db.php'; // adjust path if needed
+
+// Fetch contributions
 $user_id = $_SESSION['user_id'];
-$name = $_SESSION['name'];
+$role = $_SESSION['role'];
+
+if ($role === 'member' || $role === 'treasurer') {
+    $stmt = $conn->prepare("SELECT amount, contribution_date, description FROM contributions WHERE user_id = ? ORDER BY contribution_date DESC");
+    $stmt->bind_param("i", $user_id);
+} else {
+    // Admin or treasurer viewing all
+    $stmt = $conn->prepare("SELECT users.name, amount, contribution_date, description FROM contributions JOIN users ON contributions.user_id = users.id ORDER BY contribution_date DESC");
+}
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -17,52 +28,39 @@ $name = $_SESSION['name'];
 <head>
   <meta charset="UTF-8">
   <title>My Contributions</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">ChapChapPay</a>
-    <div class="d-flex">
-      <a href="logout.php" class="btn btn-outline-light">Logout</a>
-    </div>
-  </div>
-</nav>
-
 <div class="container mt-5">
-  <h3 class="mb-4 text-center">My Contribution History</h3>
+  <h2 class="mb-4">Contribution History</h2>
 
-  <!-- Placeholder table: later we’ll fetch real data from DB -->
-  <table class="table table-bordered table-striped">
-    <thead class="thead-dark">
-      <tr>
-        <th>#</th>
-        <th>Date</th>
-        <th>Amount (KES)</th>
-        <th>Comment</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>2025-06-15</td>
-        <td>500</td>
-        <td>Monthly contribution</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>2025-06-29</td>
-        <td>250</td>
-        <td>Top up</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="text-center mt-4">
-    <a href="<?php echo ($_SESSION['role'] === 'treasurer') ? 'treasurerdashboard.php' : 'memberdashboard.php'; ?>" class="btn btn-secondary">Back to Dashboard</a>
-  </div>
+  <?php if ($result->num_rows > 0): ?>
+    <table class="table table-bordered table-hover bg-white">
+      <thead class="thead-dark">
+        <tr>
+          <?php if ($role === 'admin' || $role === 'treasurer') echo "<th>Member Name</th>"; ?>
+          <th>Amount (KES)</th>
+          <th>Date</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php while ($row = $result->fetch_assoc()): ?>
+          <tr>
+            <?php if ($role === 'admin' || $role === 'treasurer') echo "<td>" . htmlspecialchars($row['name']) . "</td>"; ?>
+            <td><?php echo htmlspecialchars($row['amount']); ?></td>
+            <td><?php echo htmlspecialchars($row['contribution_date']); ?></td>
+            <td><?php echo htmlspecialchars($row['description']); ?></td>
+          </tr>
+        <?php endwhile; ?>
+      </tbody>
+    </table>
+  <?php else: ?>
+    <div class="alert alert-info">No contributions found.</div>
+  <?php endif; ?>
 </div>
 
 </body>
 </html>
+
