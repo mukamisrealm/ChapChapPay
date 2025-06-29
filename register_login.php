@@ -106,7 +106,7 @@ if ($mode === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="alert alert-success"><?= $success ?></div>
   <?php endif; ?>
 
-  <form method="POST" action="auth.php?mode=<?= $mode ?>">
+  <form method="POST" action="register_login.php?mode=<?= $mode ?>">
     <?php if ($mode === 'register'): ?>
       <div class="form-group">
         <label>Full Name</label>
