@@ -1,12 +1,13 @@
 <?php
-echo "✅ File loaded<br>";
-
 session_start();
-include 'db.php';
+include 'db.php'; // make sure this exists and is correct
 
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Check if form was submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    echo "✅ Form submitted<br>";
+
     $email = trim($_POST['email']);
     $password_input = $_POST['password'];
 
@@ -15,97 +16,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute();
     $result = $stmt->get_result()->fetch_assoc();
 
-    if ($result) {
-        echo "<pre>User found:\n";
-        print_r($result);
-        echo "</pre>";
+    if ($result && password_verify($password_input, $result['password'])) {
+        $_SESSION['user_id'] = $result['id'];
+        $_SESSION['role'] = $result['role'];
 
-        if (password_verify($password_input, $result['password'])) {
-            echo "✅ Password correct<br>";
-
-            $_SESSION['user_id'] = $result['id'];
-            $_SESSION['role'] = $result['role'];
-
-            // Redirect based on role
-            switch ($result['role']) {
-                case 'admin':
-                    header("Location: admindashboard.php");
-                    break;
-                case 'treasurer':
-                    header("Location: treasurerdashboard.php");
-                    break;
-                case 'member':
-                    header("Location: memberdashboard.php");
-                    break;
-                default:
-                    $error = "Unknown user role. Contact administrator.";
-                    echo $error;
-                    exit();
-            }
-            exit();
-        } else {
-            echo "❌ Password incorrect";
+        // Redirect based on role
+        switch ($result['role']) {
+            case 'admin':
+                header("Location: admindashboard.php");
+                break;
+            case 'treasurer':
+                header("Location: treasurerdashboard.php");
+                break;
+            case 'member':
+                header("Location: memberdashboard.php");
+                break;
+            default:
+                $error = "Unknown role.";
         }
+        exit();
     } else {
-        echo "❌ User not found for email: $email";
+        $error = "Invalid credentials.";
     }
-    exit(); // For now stop execution after debug
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>ChapChapPay - Login</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f0f2f5;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .login-box {
-            background: white;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-    </style>
 </head>
 <body>
 
-<div class="login-box">
-    <h3 class="text-center mb-4">Login to ChapChapPay</h3>
+<h2>Login</h2>
 
-    <?php if (!empty($error)): ?>
-        <div class="alert alert-danger"><?php echo $error; ?></div>
-    <?php endif; ?>
+<?php if (!empty($error)) : ?>
+    <p style="color: red;"><?php echo $error; ?></p>
+<?php endif; ?>
 
-    <form method="POST" action="login.php">
-        <div class="form-group">
-            <label for="email">Email address:</label>
-            <input type="email" name="email" class="form-control" required placeholder="Enter your email">
-        </div>
+<form method="POST" action="login.php">
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br><br>
 
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" name="password" class="form-control" required placeholder="Enter your password">
-        </div>
+    <label>Password:</label><br>
+    <input type="password" name="password" required><br><br>
 
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
+    <button type="submit">Login</button>
+</form>
 
-        <p class="text-center mt-3">
-            Don't have an account? <a href="register.php">Register</a>
-        </p>
-    </form>
-</div>
+<p><a href="register.php">Don't have an account? Register</a></p>
 
 </body>
 </html>
+
 
