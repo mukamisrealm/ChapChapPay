@@ -68,7 +68,17 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-   
+   <!-- Add Contribution -->
+<div class="col-md-4 mb-3">
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title">Add Contribution</h5>
+      <p class="card-text">Record a new member contribution.</p>
+      <a href="../add_contrib.php" class="btn btn-primary">Add Contribution</a>
+    </div>
+  </div>
+</div>
+
 
 
     <!-- Schedule Payouts -->
