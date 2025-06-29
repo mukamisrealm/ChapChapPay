@@ -46,16 +46,30 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
+    
+
     <!-- Add Fine -->
 <div class="col-md-4 mb-3">
   <div class="card text-center">
     <div class="card-body">
       <h5 class="card-title">Add Fine</h5>
       <p class="card-text">Record a fine for a member or treasurer.</p>
-      <a href="add_fine.php" class="btn btn-danger">Add Fine</a>
+      <a href="../add_fine.php" class="btn btn-danger">Add Fine</a>
     </div>
   </div>
 </div>
+     
+    <!-- View Fines -->
+<div class="col-md-4 mb-3">
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title">View Fines</h5>
+      <p class="card-text">Check all member fines.</p>
+      <a href="../view_fine.php" class="btn btn-warning">View Fines</a>
+    </div>
+  </div>
+</div>
+
 
 
     <!-- View Reports -->
