@@ -1,4 +1,6 @@
 <?php
+echo "✅ File loaded<br>";
+
 session_start();
 include 'db.php';
 
