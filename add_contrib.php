@@ -58,7 +58,7 @@ $members = $conn->query("SELECT id, name FROM users WHERE role = 'member' OR rol
 
     <div class="mb-3">
       <label for="amount" class="form-label">Amount (KES)</label>
-      <input type="number" name="amount" class="form-control" required>
+      <input type="number" class="form-control" id="amount" name="amount" min="0" step="50" required>
     </div>
 
     <div class="mb-3">
