@@ -31,7 +31,7 @@ if ($mode === 'register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($stmt->execute()) {
                 $success = "Registration successful. Please log in.";
-                header("Location: auth.php?mode=login");
+                header("Location: register_login.php?mode=login");
                 exit();
             } else {
                 $error = "Registration failed.";
