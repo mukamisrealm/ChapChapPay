@@ -54,6 +54,17 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
+     <!-- View Reports -->
+    <div class="col-md-4 mb-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Reports</h5>
+          <p class="card-text">Access Chama reports.</p>
+          <a href="../view_reports.php" class="btn btn-success">View Reports</a>
+        </div>
+      </div>
+    </div>
+
     <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
