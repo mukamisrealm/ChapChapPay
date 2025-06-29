@@ -68,15 +68,7 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-    <div class="col-md-4 mb-3">
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">Member Contributions</h5>
-      <p class="card-text">Check contributions made by all members.</p>
-      <a href="../all_contrib.php" class="btn btn-primary">View Member Contributions</a>
-    </div>
-  </div>
-</div>
+   
 
 
     <!-- Schedule Payouts -->
