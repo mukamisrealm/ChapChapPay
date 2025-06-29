@@ -4,7 +4,7 @@ session_start();
 //exit();
 if (!isset($_SESSION['name'])) {
     // User is not logged in; redirect to login
-    header("Location: login.php");
+    header("Location: register_login.php");
     exit();
 }
 $name = $_SESSION['name'];

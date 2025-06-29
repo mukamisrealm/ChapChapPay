@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 session_start();
 if (!isset($_SESSION['name']) || strtolower($_SESSION['role']) !== 'treasurer') {
     // Not logged in or not a Treasurer
-    header("Location: login.php");
+    header("Location: register_login.php");
     exit();
 }
 $name = $_SESSION['name'];
