@@ -59,6 +59,9 @@ $result = $stmt->get_result();
   <?php else: ?>
     <div class="alert alert-info">No contributions found.</div>
   <?php endif; ?>
+   <div class="text-center mt-4">
+    <a href="<?php echo ($_SESSION['role'] === 'treasurer') ? 'treasurerdashboard.php' : 'memberdashboard.php'; ?>" class="btn btn-secondary">Back to Dashboard</a>
+  </div>
 </div>
 
 </body>
