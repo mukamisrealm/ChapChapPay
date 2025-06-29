@@ -118,6 +118,16 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
+     <div class="col-md-4 mb-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">My Payouts</h5>
+          <p class="card-text">View payouts.</p>
+          <a href="../view_payout.php" class="btn btn-primary">View Payouts</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
