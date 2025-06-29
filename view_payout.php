@@ -1,6 +1,9 @@
 <?php
 session_start();
 include 'db.php';
+$today = date('Y-m-d');
+$conn->query("UPDATE payouts SET status = 'completed' WHERE payout_date <= '$today' AND status = 'pending'");
+
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: register_login.php");
