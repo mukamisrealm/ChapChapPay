@@ -8,6 +8,8 @@ if (!isset($_SESSION['name'])) {
 // Include DB
 include 'db.php'; // adjust path if needed
 
+$result = $conn->query("SELECT * FROM contributions ORDER BY date DESC");
+
 // Fetch contributions
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['role'];
