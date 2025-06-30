@@ -141,6 +141,33 @@ $name = $_SESSION['name'];
     </div>
 
   </div>
+   <!--  Support Request Form -->
+<div class="card mt-5">
+  <div class="card-body">
+    <h4 class="card-title">Need Help? Submit a Support Request</h4>
+
+    <form action="../ChapChapPay/support_requests.php" method="POST">
+      <input type="hidden" name="name" value="<?php echo htmlspecialchars($name); ?>">
+
+      <div class="mb-3">
+        <label for="subject" class="form-label">Subject</label>
+        <input type="text" class="form-control" name="subject" id="subject" required>
+      </div>
+      <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea class="form-control" name="message" id="message" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-info">Send Request</button>
+    </form>
+
+  </div>
+</div>
+<!-- End Support Form -->
+
+</div>
+
+</body>
+</html>
 </div>
 
 </body>

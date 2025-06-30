@@ -25,7 +25,7 @@ $name = $_SESSION['name'];
   <div class="container-fluid">
     <a class="navbar-brand" href="#">ChapChapPay</a>
     <div class="d-flex">
-<a href="../logout.php" class="btn btn-outline-light">Logout</a>
+      <a href="../logout.php" class="btn btn-outline-light">Logout</a>
     </div>
   </div>
 </nav>
@@ -54,7 +54,6 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-     <!-- View Reports -->
     <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
@@ -65,17 +64,15 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-    <!-- Make a Request -->
-<div class="col-md-4 mb-3">
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">Make a Request</h5>
-      <p class="card-text">Request a loan, skip, or half-payment.</p>
-      <a href="make_request.php" class="btn btn-primary">Submit Request</a>
+    <div class="col-md-4 mb-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Make a Request</h5>
+          <p class="card-text">Request a loan, skip, or half-payment.</p>
+          <a href="make_request.php" class="btn btn-primary">Submit Request</a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
 
     <div class="col-md-4 mb-3">
       <div class="card text-center">
@@ -87,6 +84,31 @@ $name = $_SESSION['name'];
       </div>
     </div>
   </div>
+
+ <!--  Support Request Form -->
+<div class="card mt-5">
+  <div class="card-body">
+    <h4 class="card-title">Need Help? Submit a Support Request</h4>
+
+    <form action="../ChapChapPay/support_requests.php" method="POST">
+      <input type="hidden" name="name" value="<?php echo htmlspecialchars($name); ?>">
+
+      <div class="mb-3">
+        <label for="subject" class="form-label">Subject</label>
+        <input type="text" class="form-control" name="subject" id="subject" required>
+      </div>
+      <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea class="form-control" name="message" id="message" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-info">Send Request</button>
+    </form>
+
+  </div>
+</div>
+<!-- End Support Form -->
+
+
 </div>
 
 </body>
