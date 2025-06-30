@@ -83,6 +83,18 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
+    <!-- View Member Requests -->
+<div class="col-md-4 mb-3">
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title">Member Requests</h5>
+      <p class="card-text">View and act on loan, skip, or half-payment requests.</p>
+      <a href="view_requests.php" class="btn btn-warning">View Requests</a>
+    </div>
+  </div>
+</div>
+
+
     <!-- Contribution Summary -->
     <div class="col-md-4 mb-3">
       <div class="card text-center">

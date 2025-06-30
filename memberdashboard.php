@@ -65,6 +65,18 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
+    <!-- Make a Request -->
+<div class="col-md-4 mb-3">
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title">Make a Request</h5>
+      <p class="card-text">Request a loan, skip, or half-payment.</p>
+      <a href="make_request.php" class="btn btn-primary">Submit Request</a>
+    </div>
+  </div>
+</div>
+
+
     <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
