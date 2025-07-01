@@ -41,7 +41,7 @@ $name = $_SESSION['name'];
         <div class="card-body">
           <h5 class="card-title">Manage Members</h5>
           <p class="card-text">View and manage member records.</p>
-          <a href="../view_members.php" class="btn btn-success">View Members</a>
+          <a href="view_members.php" class="btn btn-success">View Members</a>
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@ $name = $_SESSION['name'];
     <div class="card-body">
       <h5 class="card-title">Add Fine</h5>
       <p class="card-text">Record a fine for a member or treasurer.</p>
-      <a href="../add_fine.php" class="btn btn-danger">Add Fine</a>
+      <a href="add_fine.php" class="btn btn-danger">Add Fine</a>
     </div>
   </div>
 </div>
@@ -65,7 +65,7 @@ $name = $_SESSION['name'];
     <div class="card-body">
       <h5 class="card-title">View Fines</h5>
       <p class="card-text">Check all member fines.</p>
-      <a href="../view_fine.php" class="btn btn-warning">View Fines</a>
+      <a href="view_fine.php" class="btn btn-warning">View Fines</a>
     </div>
   </div>
 </div>
@@ -78,7 +78,7 @@ $name = $_SESSION['name'];
         <div class="card-body">
           <h5 class="card-title">Reports</h5>
           <p class="card-text">Access Chama reports.</p>
-          <a href="../view_reports.php" class="btn btn-success">View Reports</a>
+          <a href="view_reports.php" class="btn btn-success">View Reports</a>
         </div>
       </div>
     </div>
@@ -101,7 +101,7 @@ $name = $_SESSION['name'];
         <div class="card-body">
           <h5 class="card-title">My Contribution Summary</h5>
           <p class="card-text">View your contribution records.</p>
-          <a href="../view_contrib.php" class="btn btn-success">View Contribution Summary</a>
+          <a href="view_contrib.php" class="btn btn-success">View Contribution Summary</a>
         </div>
       </div>
     </div>
@@ -112,7 +112,7 @@ $name = $_SESSION['name'];
     <div class="card-body">
       <h5 class="card-title">Add Contribution</h5>
       <p class="card-text">Record a new member contribution.</p>
-      <a href="../add_contrib.php" class="btn btn-primary">Add Contribution</a>
+      <a href="add_contrib.php" class="btn btn-primary">Add Contribution</a>
     </div>
   </div>
 </div>
@@ -125,7 +125,7 @@ $name = $_SESSION['name'];
         <div class="card-body">
           <h5 class="card-title">Payouts</h5>
           <p class="card-text">Manage and schedule payouts.</p>
-          <a href="../schedule_payout.php" class="btn btn-success">Schedule Payout</a>
+          <a href="schedule_payout.php" class="btn btn-success">Schedule Payout</a>
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@ $name = $_SESSION['name'];
         <div class="card-body">
           <h5 class="card-title">My Payouts</h5>
           <p class="card-text">View payouts.</p>
-          <a href="../view_payout.php" class="btn btn-primary">View Payouts</a>
+          <a href="view_payout.php" class="btn btn-primary">View Payouts</a>
         </div>
       </div>
     </div>
