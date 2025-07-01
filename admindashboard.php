@@ -21,11 +21,9 @@ $name = $_SESSION['name'];
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">ChapChapPay</a>
+    <a href="index.php" class="btn btn-outline-light">Home</a>
     <div class="d-flex">
       <a href="logout.php" class="btn btn-outline-light">Logout</a>
-    </div>
-    <div class="d-flex">
-      <a href="index.php" class="btn btn-outline-light">Home</a>
     </div>
   </div>
 </nav>
