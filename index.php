@@ -68,7 +68,7 @@
     <p><span style="color:#000;font-weight: bold;">Manage your Chama contributions with ease and transparency.</span></p>
 
     <a href="register_login.php" class="btn">Login / Register</a>
-    <a href="support_requests.php" class="btn">Help</a>
+    <a href="help.php" class="btn">Help</a>
   </div>
 
 </body>
