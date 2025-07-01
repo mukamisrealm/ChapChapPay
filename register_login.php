@@ -55,6 +55,12 @@ if ($mode === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['role'] = $user['role'];
         $_SESSION['name'] = $user['name'];
 
+        // After successful login:
+     $stmt = $conn->prepare("UPDATE users SET last_login = NOW() WHERE id = ?");
+     $stmt->bind_param("i", $result['id']);
+     $stmt->execute();
+
+
         switch ($user['role']) {
             case 'admin': header("Location: admindashboard.php"); break;
             case 'treasurer': header("Location: treasurerdashboard.php"); break;
