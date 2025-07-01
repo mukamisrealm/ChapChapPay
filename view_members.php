@@ -8,7 +8,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'treasurer') {
 }
 
 // Fetch only members who have logged in
-$stmt = $conn->prepare("SELECT name, email, role, last_login FROM users WHERE (role = 'member' OR role = 'treasurer') AND last_login IS NOT NULL ORDER BY last_login DESC");
+$stmt = $conn->prepare("SELECT name, email, role, last_login FROM users WHERE (role = 'member' OR role = 'treasurer')  ORDER BY last_login DESC");
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -41,7 +41,7 @@ $result = $stmt->get_result();
             <td><?php echo htmlspecialchars($row['name']); ?></td>
             <td><?php echo htmlspecialchars($row['email']); ?></td>
             <td><?php echo ucfirst($row['role']); ?></td>
-            <td><?php echo htmlspecialchars($row['last_login']); ?></td>
+            <td><?php echo $row['last_login'] ? $row['last_login'] : 'Not logged in'; ?></td>
           </tr>
         <?php endwhile; ?>
       </tbody>
