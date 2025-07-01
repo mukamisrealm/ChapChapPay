@@ -9,7 +9,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'treasurer') {
 }
 
 // Fetch users who have logged in (i.e., last_login is not NULL)
-$stmt = $conn->prepare("SELECT name, email, role, last_login FROM users WHERE last_login IS NOT NULL");
+$stmt = $conn->prepare("SELECT * FROM users WHERE role = 'member' ");
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -102,7 +102,7 @@ $result = $stmt->get_result();
             <td><?= htmlspecialchars($row['name']) ?></td>
             <td><?= htmlspecialchars($row['email']) ?></td>
             <td><?= htmlspecialchars($row['role']) ?></td>
-            <td><?= htmlspecialchars($row['last_login']) ?></td>
+            <td><?php echo $row['last_login'] ? $row['last_login'] : 'Not logged in'; ?></td>
           </tr>
         <?php endwhile; ?>
       </tbody>
