@@ -15,7 +15,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
 <!-- Support Request Form -->
-<div class="card mt-5 mx-auto" style="max-width: 600px; background: linear-gradient(135deg, #f8f9fa 0%, #e9f0fb 100%); border-radius: 10px; box-shadow: 0 8px 10px rgba(0,0,0,0.1);">
+<div class="card mt-5 mx-auto" style="max-width: 450px; background: linear-gradient(135deg, #f8f9fa 0%, #e9f0fb 100%); border-radius: 10px; box-shadow: 0 8px 10px rgba(0,0,0,0.1);">
   <div class="card-body p-4">
     <h3 class="card-title mb-4 fw-bold text-primary text-center">Need Help? Submit a Support Request</h3>
 
