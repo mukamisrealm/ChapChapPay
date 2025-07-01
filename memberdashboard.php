@@ -25,7 +25,7 @@ $name = $_SESSION['name'];
   <div class="container-fluid">
     <a class="navbar-brand" href="#">ChapChapPay</a>
     <div class="d-flex">
-      <a href="../logout.php" class="btn btn-outline-light">Logout</a>
+      <a href="logout.php" class="btn btn-outline-light">Logout</a>
     </div>
   </div>
 </nav>
@@ -39,7 +39,7 @@ $name = $_SESSION['name'];
         <div class="card-body">
           <h5 class="card-title">My Contributions</h5>
           <p class="card-text">View your contribution history.</p>
-          <a href="../view_contrib.php" class="btn btn-primary">View Contributions</a>
+          <a href="view_contrib.php" class="btn btn-primary">View Contributions</a>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@ $name = $_SESSION['name'];
         <div class="card-body">
           <h5 class="card-title">My Fines</h5>
           <p class="card-text">Check fines issued to you.</p>
-          <a href="../view_fine.php" class="btn btn-primary">View Fines</a>
+          <a href="view_fine.php" class="btn btn-primary">View Fines</a>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@ $name = $_SESSION['name'];
         <div class="card-body">
           <h5 class="card-title">Reports</h5>
           <p class="card-text">Access Chama reports.</p>
-          <a href="../view_reports.php" class="btn btn-success">View Reports</a>
+          <a href="view_reports.php" class="btn btn-success">View Reports</a>
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@ $name = $_SESSION['name'];
         <div class="card-body">
           <h5 class="card-title">My Payouts</h5>
           <p class="card-text">View payouts.</p>
-          <a href="../view_payout.php" class="btn btn-primary">View Payouts</a>
+          <a href="view_payout.php" class="btn btn-primary">View Payouts</a>
         </div>
       </div>
     </div>
