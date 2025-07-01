@@ -22,11 +22,11 @@ $name = $_SESSION['name'];
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">ChapChapPay</a>
     <div class="d-flex">
-      <a href="logout.php" class="btn btn-outline-light">Logout</a>
+      <a href="../logout.php" class="btn btn-outline-light">Logout</a>
     </div>
   </div>
 </nav>
