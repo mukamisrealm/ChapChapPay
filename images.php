@@ -1,28 +1,29 @@
-<!-- Top Banner Strip -->
-<div class="banner-strip">
-  <img src="photos\download (12).png" alt="ChapChapPay African Banner" class="banner-img">
+<!-- Background image -->
+<div class="background.img">
+  <img src="photos\Maori-style corner decoration featuring a turtle in blue and turquoise_.jpeg" alt="ChapChapPay background img" class="background.img">
 </div>
 
 <style>
-  .banner-strip {
+  background image {
     width: 100%;
     overflow: hidden;
     background-color: #3e2723; /* optional fallback color */
   }
 
-  .banner-img {
+  .background.img {
     width: 100%;
-    max-height: 60px;
+    max-height: 100px;
     object-fit: cover;
-    display: block;
+    display: grid;
   }
    body {
       background: linear-gradient(to right, #87ceeb, #f0f8ff);
       height: 100vh;
       
-      align-items: center;
-      justify-content: center;
+      align-items: flex-end;
+      justify-content: right;
       font-family: 'Segoe UI', sans-serif;
     }
 
 </style>
+ 
