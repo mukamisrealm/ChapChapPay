@@ -26,7 +26,10 @@ $name = $_SESSION['name'];
   <div class="container-fluid">
     <a class="navbar-brand" href="#">ChapChapPay</a>
     <div class="d-flex">
-      <a href="../logout.php" class="btn btn-outline-light">Logout</a>
+      <a href="logout.php" class="btn btn-outline-light">Logout</a>
+    </div>
+    <div class="d-flex">
+      <a href="index.php" class="btn btn-outline-light">Home</a>
     </div>
   </div>
 </nav>
