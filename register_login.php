@@ -82,7 +82,7 @@ if ($mode === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      background-color: #87CEEB;
+      background-color:cadetblue;
       height: 100vh;
       display: flex;
       align-items: center;
@@ -94,7 +94,7 @@ if ($mode === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
     }
     h2 { text-align: center; }
   </style>
