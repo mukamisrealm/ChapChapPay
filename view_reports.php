@@ -2,7 +2,6 @@
 session_start();
 include 'db.php';
 
-// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: register_login.php");
     exit();
@@ -16,119 +15,172 @@ if ($role === 'treasurer') {
     include 'navbar_admin.php';
 }
 
-$role = $_SESSION['role'];
 $user_id = $_SESSION['user_id'];
+$role = $_SESSION['role'];
+
+// Contributions
+if ($role === 'member') {
+    $contrib_stmt = $conn->prepare("SELECT amount, contribution_date, description FROM contributions WHERE user_id = ? ORDER BY contribution_date DESC");
+    $contrib_stmt->bind_param("i", $user_id);
+} else {
+    $contrib_stmt = $conn->prepare("SELECT users.name, amount, contribution_date, description FROM contributions JOIN users ON contributions.user_id = users.id ORDER BY contribution_date DESC");
+}
+$contrib_stmt->execute();
+$contributions = $contrib_stmt->get_result();
+
+// Fines
+if ($role === 'member') {
+    $fine_stmt = $conn->prepare("SELECT amount, fine_date, reason FROM fines WHERE user_id = ? ORDER BY fine_date DESC");
+    $fine_stmt->bind_param("i", $user_id);
+} else {
+    $fine_stmt = $conn->prepare("SELECT users.name, amount, fine_date, reason FROM fines JOIN users ON fines.user_id = users.id ORDER BY fine_date DESC");
+}
+$fine_stmt->execute();
+$fines = $fine_stmt->get_result();
+
+// Payout Schedule
+if ($role === 'member') {
+    $payout_stmt = $conn->prepare("SELECT amount, payout_date, status FROM payouts WHERE user_id = ? ORDER BY payout_date ASC");
+    $payout_stmt->bind_param("i", $user_id);
+} else {
+    $payout_stmt = $conn->prepare("SELECT users.name, amount, payout_date, status FROM payouts JOIN users ON payouts.user_id = users.id ORDER BY payout_date ASC");
+}
+$payout_stmt->execute();
+$payouts = $payout_stmt->get_result();
+
+// Member Requests
+if ($role === 'member') {
+    $request_stmt = $conn->prepare("SELECT request_type, reason, request_date, status FROM member_requests WHERE user_id = ? ORDER BY request_date DESC");
+    $request_stmt->bind_param("i", $user_id);
+} else {
+    $request_stmt = $conn->prepare("SELECT users.name, request_type, reason, request_date, status FROM member_requests JOIN users ON member_requests.user_id = users.id ORDER BY request_date DESC");
+}
+$request_stmt->execute();
+$requests = $request_stmt->get_result();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>View Reports</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Chama Reports</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
+<div class="container mt-4">
+    <h2 class="mb-4">Chama Reports</h2>
 
-<div class="container mt-5">
-  <h2 class="mb-4">📊 Chama Report</h2>
+    <!-- Contributions Section -->
+    <h4>Contributions</h4>
+    <?php if ($contributions->num_rows > 0): ?>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <?php if ($role !== 'member') echo "<th>Name</th>"; ?>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($row = $contributions->fetch_assoc()): ?>
+                    <tr>
+                        <?php if ($role !== 'member') echo "<td>" . htmlspecialchars($row['name']) . "</td>"; ?>
+                        <td><?= htmlspecialchars($row['amount']) ?></td>
+                        <td><?= htmlspecialchars($row['contribution_date']) ?></td>
+                        <td><?= htmlspecialchars($row['description']) ?></td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <div class="alert alert-info">No contributions found.</div>
+    <?php endif; ?>
 
-  <!-- Contributions Summary -->
-  <div class="card mb-4">
-    <div class="card-header bg-success text-white">💰 Contributions Summary</div>
-    <div class="card-body">
-      <table class="table table-bordered">
-        <thead><tr><th>Name</th><th>Amount</th><th>Date</th><th>Description</th></tr></thead>
-        <tbody>
-        <?php
-          $sql = "SELECT users.name, amount, contribution_date, description FROM contributions JOIN users ON contributions.user_id = users.id ORDER BY contribution_date DESC";
-          $res = $conn->query($sql);
-          while($row = $res->fetch_assoc()): ?>
-            <tr>
-              <td><?= htmlspecialchars($row['name']) ?></td>
-              <td><?= htmlspecialchars($row['amount']) ?></td>
-              <td><?= htmlspecialchars($row['contribution_date']) ?></td>
-              <td><?= htmlspecialchars($row['description']) ?></td>
-            </tr>
-        <?php endwhile; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <!-- Fines Section -->
+    <h4 class="mt-5">Fines</h4>
+    <?php if ($fines->num_rows > 0): ?>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <?php if ($role !== 'member') echo "<th>Name</th>"; ?>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($row = $fines->fetch_assoc()): ?>
+                    <tr>
+                        <?php if ($role !== 'member') echo "<td>" . htmlspecialchars($row['name']) . "</td>"; ?>
+                        <td><?= htmlspecialchars($row['amount']) ?></td>
+                        <td><?= htmlspecialchars($row['fine_date']) ?></td>
+                        <td><?= htmlspecialchars($row['reason']) ?></td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <div class="alert alert-info">No fines found.</div>
+    <?php endif; ?>
 
-  <!-- Fines Summary -->
-  <div class="card mb-4">
-    <div class="card-header bg-danger text-white">⚠️ Fines Summary</div>
-    <div class="card-body">
-      <table class="table table-bordered">
-        <thead><tr><th>Name</th><th>Amount</th><th>Date</th><th>Reason</th></tr></thead>
-        <tbody>
-        <?php
-          $sql = "SELECT users.name, amount, fine_date, reason FROM fines JOIN users ON fines.user_id = users.id ORDER BY fine_date DESC";
-          $res = $conn->query($sql);
-          while($row = $res->fetch_assoc()): ?>
-            <tr>
-              <td><?= htmlspecialchars($row['name']) ?></td>
-              <td><?= htmlspecialchars($row['amount']) ?></td>
-              <td><?= htmlspecialchars($row['fine_date']) ?></td>
-              <td><?= htmlspecialchars($row['reason']) ?></td>
-            </tr>
-        <?php endwhile; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <!-- Payout Schedule Section -->
+    <h4 class="mt-5">Payout Schedule</h4>
+    <?php if ($payouts->num_rows > 0): ?>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <?php if ($role !== 'member') echo "<th>Name</th>"; ?>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($row = $payouts->fetch_assoc()): ?>
+                    <tr>
+                        <?php if ($role !== 'member') echo "<td>" . htmlspecialchars($row['name']) . "</td>"; ?>
+                        <td><?= htmlspecialchars($row['amount']) ?></td>
+                        <td><?= htmlspecialchars($row['payout_date']) ?></td>
+                        <td><?= htmlspecialchars($row['status']) ?></td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <div class="alert alert-info">No payouts scheduled.</div>
+    <?php endif; ?>
 
-  <!-- Payout Schedule -->
-  <div class="card mb-4">
-    <div class="card-header bg-primary text-white">📤 Payout Schedule</div>
-    <div class="card-body">
-      <table class="table table-bordered">
-        <thead><tr><th>Name</th><th>Payout Date</th><th>Amount</th><th>Status</th></tr></thead>
-        <tbody>
-        <?php
-          $sql = "SELECT users.name, payout_date, amount, status FROM payouts JOIN users ON payouts.user_id = users.id ORDER BY payout_date ASC";
-          $res = $conn->query($sql);
-          while($row = $res->fetch_assoc()): ?>
-            <tr>
-              <td><?= htmlspecialchars($row['name']) ?></td>
-              <td><?= htmlspecialchars($row['payout_date']) ?></td>
-              <td><?= htmlspecialchars($row['amount']) ?></td>
-              <td><?= htmlspecialchars($row['status']) ?></td>
-            </tr>
-        <?php endwhile; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <!-- Requests Section -->
+    <h4 class="mt-5">Member Requests</h4>
+    <?php if ($requests->num_rows > 0): ?>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <?php if ($role !== 'member') echo "<th>Name</th>"; ?>
+                    <th>Request Type</th>
+                    <th>Reason</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($row = $requests->fetch_assoc()): ?>
+                    <tr>
+                        <?php if ($role !== 'member') echo "<td>" . htmlspecialchars($row['name']) . "</td>"; ?>
+                        <td><?= htmlspecialchars($row['request_type']) ?></td>
+                        <td><?= htmlspecialchars($row['reason']) ?></td>
+                        <td><?= htmlspecialchars($row['request_date']) ?></td>
+                        <td><?= htmlspecialchars($row['status']) ?></td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <div class="alert alert-info">No requests submitted.</div>
+    <?php endif; ?>
 
-  <!-- Member Requests -->
-  <div class="card mb-4">
-    <div class="card-header bg-warning text-dark">📌 Member Requests</div>
-    <div class="card-body">
-      <table class="table table-bordered">
-        <thead><tr><th>Name</th><th>Request Type</th><th>Date</th><th>Status</th></tr></thead>
-        <tbody>
-        <?php
-          $sql = "SELECT users.name, request_type, request_date, status FROM requests JOIN users ON requests.user_id = users.id ORDER BY request_date DESC";
-          $res = $conn->query($sql);
-          while($row = $res->fetch_assoc()): ?>
-            <tr>
-              <td><?= htmlspecialchars($row['name']) ?></td>
-              <td><?= htmlspecialchars($row['request_type']) ?></td>
-              <td><?= htmlspecialchars($row['request_date']) ?></td>
-              <td><?= htmlspecialchars($row['status']) ?></td>
-            </tr>
-        <?php endwhile; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="text-center">
-    <a href="<?php echo ($role === 'treasurer') ? 'treasurerdashboard.php' : 'memberdashboard.php'; ?>" class="btn btn-secondary">Back to Dashboard</a>
-  </div>
 </div>
-
 </body>
 </html>
+
 
