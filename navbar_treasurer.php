@@ -17,7 +17,6 @@
         <li class="nav-item"><a class="nav-link" href="view_reports.php">Reports</a></li>
         <li class="nav-item"><a class="nav-link" href="view_requests.php">Requests</a></li>
       </ul>
-      <span class="navbar-text me-3">Hello, <?php echo htmlspecialchars($_SESSION['name']); ?></span>
       <a href="logout.php" class="btn btn-outline-light btn-sm">Logout</a>
     </div>
   </div>
