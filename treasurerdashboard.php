@@ -11,75 +11,19 @@ if (!isset($_SESSION['name']) || strtolower($_SESSION['role']) !== 'treasurer') 
 $name = $_SESSION['name'];
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Treasurer Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    .sidebar {
-      width: 220px;
-      background-color: #198754;
-      color: white;
-      padding-top: 20px;
-      position: fixed;
-      height: 100%;
-    }
-
-    .sidebar a {
-      color: white;
-      display: block;
-      padding: 12px 20px;
-      text-decoration: none;
-    }
-
-    .sidebar a:hover {
-      background-color: #145c3d;
-    }
-
-    .main-content {
-      margin-left: 220px;
-      padding: 20px;
-      width: 100%;
-      background-color: #f8f9fa;
-    }
-
-    .logout-btn {
-      margin-top: 20px;
-      margin-left: 20px;
-    }
-  </style>
 </head>
 <body>
 
-<div class="sidebar">
-  <h4 class="text-center">ChapChapPay</h4>
-  <hr style="border-color: rgba(255,255,255,0.3);">
-
-  <a href="treasurerdashboard.php">Dashboard</a>
-  <a href="add_contrib.php">Add Contribution</a>
-  <a href="view_contrib.php">View Contributions</a>
-  <a href="add_fine.php">Add Fine</a>
-  <a href="view_fines.php">View Fines</a>
-  <a href="schedule_payout.php">Schedule Payout</a>
-  <a href="view_payouts.php">View Payouts</a>
-  <a href="view_members.php">View Members</a>
-  <a href="view_reports.php">Reports</a>
-  <a href="view_requests.php">Requests</a>
-  <a href="index.php">Home</a>
-
-  <a href="logout.php" class="btn btn-light btn-sm logout-btn">Logout</a>
-</div>
+<?php include 'treasurer_sidebar.php'; ?>
 
 <div class="main-content">
-  <h2>Welcome, Treasurer <?php echo htmlspecialchars($name); ?>!</h2>
+  <h2 class="mb-4">Welcome, Treasurer <?php echo htmlspecialchars($name); ?>!</h2>
 
   <p>This is your dashboard. Use the menu on the left to manage your chama.</p>
 
