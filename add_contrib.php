@@ -38,7 +38,20 @@ $members = $conn->query("SELECT id, name FROM users WHERE role = 'member' OR rol
 </head>
 <body class="bg-light">
 
-
+   <div class="collapse navbar-collapse" id="navContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="treasurerdashboard.php">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="add_contrib.php">Add Contribution</a></li>
+        <li class="nav-item"><a class="nav-link" href="view_contrib.php">View Contributions</a></li>
+        <li class="nav-item"><a class="nav-link" href="add_fine.php">Add Fine</a></li>
+        <li class="nav-item"><a class="nav-link" href="view_fine.php">View Fines</a></li>
+        <li class="nav-item"><a class="nav-link" href="schedule_payout.php">Schedule Payout</a></li>
+        <li class="nav-item"><a class="nav-link" href="view_payout.php">View Payouts</a></li>
+        <li class="nav-item"><a class="nav-link" href="view_members.php">View Members</a></li>
+        <li class="nav-item"><a class="nav-link" href="view_reports.php">Reports</a></li>
+        <li class="nav-item"><a class="nav-link" href="view_requests.php">Requests</a></li>
+      </ul>
+</div>
 <div class="container mt-5">
   <h3>Add a Contribution</h3>
 
