@@ -39,7 +39,6 @@ $members = $conn->query("SELECT id, name FROM users WHERE role IN ('member', 'tr
 </head>
 <body class="bg-light">
   
-<?php include 'treasurer_sidebar.php'; ?>
 <div class="container mt-5">
   <h3>Record a Fine</h3>
 
