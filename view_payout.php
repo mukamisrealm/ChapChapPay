@@ -51,22 +51,23 @@ $result = $stmt->get_result();
     <table class="table table-bordered table-hover bg-white">
       <thead class="thead-dark">
         <tr>
-          <th>Member Name</th>
-          <th>Amount (KES)</th>
-          <th>Payout Date</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php while ($row = $result->fetch_assoc()): ?>
-          <tr>
-            <td><?php echo htmlspecialchars($row['name']); ?></td>
-            <td><?php echo number_format($row['amount']); ?></td>
-            <td><?php echo htmlspecialchars($row['payout_date']); ?></td>
-            <td><?php echo ucfirst($row['status']); ?></td>
-          </tr>
-        <?php endwhile; ?>
-      </tbody>
+    <?php if ($role !== 'member') echo "<th>Member Name</th>"; ?>
+    <th>Amount (KES)</th>
+    <th>Date</th>
+    <th>Status</th>
+  </tr>
+</thead>
+<tbody>
+<?php while ($row = $result->fetch_assoc()): ?>
+  <tr>
+    <?php if ($role !== 'member') echo "<td>" . htmlspecialchars($row['name']) . "</td>"; ?>
+    <td><?= htmlspecialchars($row['amount']) ?></td>
+    <td><?= htmlspecialchars($row['payout_date']) ?></td>
+    <td><?= htmlspecialchars($row['status']) ?></td>
+  </tr>
+<?php endwhile; ?>
+</tbody>
+     
     </table>
   <?php else: ?>
     <div class="alert alert-info">No payouts scheduled yet.</div>
