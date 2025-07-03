@@ -18,18 +18,21 @@ if ($role === 'treasurer') {
     include 'navbar_admin.php';
 }
 
+$user_id = $_SESSION['user_id'];
 $role = $_SESSION['role'];
-$name = $_SESSION['name'];
 
-// Fetch payouts (show all to everyone)
-$stmt = $conn->prepare("
-    SELECT payouts.amount, payouts.payout_date, payouts.status, users.name 
-    FROM payouts 
-    JOIN users ON payouts.user_id = users.id 
-    ORDER BY payouts.payout_date ASC
-");
+if ($role === 'member') {
+    // Member sees only their payouts
+    $stmt = $conn->prepare("SELECT * FROM payouts WHERE user_id = ? ORDER BY payout_date DESC");
+    $stmt->bind_param("i", $user_id);
+} else {
+    // Treasurer sees all payouts
+    $stmt = $conn->prepare("SELECT users.name, amount, payout_date, status FROM payouts JOIN users ON payouts.user_id = users.id ORDER BY payout_date DESC");
+}
+
 $stmt->execute();
 $result = $stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>
