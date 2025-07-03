@@ -36,8 +36,9 @@ $name = $_SESSION['name'];
 
 <div class="container mt-4">
   <h2>Welcome, Treasurer <?php echo htmlspecialchars($name); ?>!</h2>
-</div>
 
+  <div class="row mt-4">
+    
     <!-- View Members -->
     <div class="col-md-4 mb-3">
       <div class="card text-center">
@@ -49,33 +50,29 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-    
-
     <!-- Add Fine -->
-<div class="col-md-4 mb-3">
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">Add Fine</h5>
-      <p class="card-text">Record a fine for a member or treasurer.</p>
-      <a href="add_fine.php" class="btn btn-danger">Add Fine</a>
+    <div class="col-md-4 mb-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Add Fine</h5>
+          <p class="card-text">Record a fine for a member or treasurer.</p>
+          <a href="add_fine.php" class="btn btn-danger">Add Fine</a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-     
+
     <!-- View Fines -->
-<div class="col-md-4 mb-3">
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">View Fines</h5>
-      <p class="card-text">Check all member fines.</p>
-      <a href="view_fine.php" class="btn btn-warning">View Fines</a>
+    <div class="col-md-4 mb-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">View Fines</h5>
+          <p class="card-text">Check all member fines.</p>
+          <a href="view_fine.php" class="btn btn-warning">View Fines</a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-
-
-    <!-- View Reports -->
+    <!-- Reports -->
     <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
@@ -86,19 +83,18 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-    <!-- View Member Requests -->
-<div class="col-md-4 mb-3">
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">Member Requests</h5>
-      <p class="card-text">View and act on loan, skip, or half-payment requests.</p>
-      <a href="view_requests.php" class="btn btn-warning">View Requests</a>
+    <!-- Requests -->
+    <div class="col-md-4 mb-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Member Requests</h5>
+          <p class="card-text">View and act on loan, skip, or half-payment requests.</p>
+          <a href="view_requests.php" class="btn btn-warning">View Requests</a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-
-    <!-- Contribution Summary -->
+    <!-- My Contribution Summary -->
     <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
@@ -109,20 +105,18 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-   <!-- Add Contribution -->
-<div class="col-md-4 mb-3">
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">Add Contribution</h5>
-      <p class="card-text">Record a new member contribution.</p>
-      <a href="add_contrib.php" class="btn btn-primary">Add Contribution</a>
+    <!-- Add Contribution -->
+    <div class="col-md-4 mb-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Add Contribution</h5>
+          <p class="card-text">Record a new member contribution.</p>
+          <a href="add_contrib.php" class="btn btn-primary">Add Contribution</a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-
-
-    <!-- Schedule Payouts -->
+    <!-- Schedule Payout -->
     <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
@@ -133,7 +127,8 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-     <div class="col-md-4 mb-3">
+    <!-- My Payouts -->
+    <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
           <h5 class="card-title">My Payouts</h5>
@@ -144,6 +139,7 @@ $name = $_SESSION['name'];
     </div>
 
   </div>
+
    <!--  Support Request Form -->
 <div class="card mt-5">
   <div class="card-body">
