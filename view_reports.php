@@ -50,10 +50,10 @@ $payouts = $payout_stmt->get_result();
 
 // Member Requests
 if ($role === 'member') {
-    $request_stmt = $conn->prepare("SELECT request_type, reason, request_date, status FROM member_requests WHERE user_id = ? ORDER BY request_date DESC");
+    $request_stmt = $conn->prepare("SELECT request_type, reason, request_date, status FROM member_request WHERE user_id = ? ORDER BY request_date DESC");
     $request_stmt->bind_param("i", $user_id);
 } else {
-    $request_stmt = $conn->prepare("SELECT users.name, request_type, reason, request_date, status FROM member_requests JOIN users ON member_requests.user_id = users.id ORDER BY request_date DESC");
+    $request_stmt = $conn->prepare("SELECT users.name, request_type, reason, request_date, status FROM member_request JOIN users ON member_requests.user_id = users.id ORDER BY request_date DESC");
 }
 $request_stmt->execute();
 $requests = $request_stmt->get_result();
