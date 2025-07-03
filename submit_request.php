@@ -18,4 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     echo "Invalid request method.";
 }
+$role = $_SESSION['role'];
+if ($role === 'treasurer') {
+    include 'navbar_treasurer.php';
+} elseif ($role === 'member') {
+    include 'navbar_member.php';
+} elseif ($role === 'admin') {
+    include 'navbar_admin.php';
+}
 ?>

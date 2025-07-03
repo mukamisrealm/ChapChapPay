@@ -19,6 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: support_requests.php");
     exit();
 }
+$role = $_SESSION['role'];
+if ($role === 'treasurer') {
+    include 'navbar_treasurer.php';
+} elseif ($role === 'member') {
+    include 'navbar_member.php';
+} elseif ($role === 'admin') {
+    include 'navbar_admin.php';
+}
 
 // Fetch all support requests (GET request)
 $result = $conn->query("SELECT * FROM support_requests ORDER BY created_at DESC");
