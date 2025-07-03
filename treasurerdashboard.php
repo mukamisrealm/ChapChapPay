@@ -27,7 +27,6 @@ $name = $_SESSION['name'];
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
       <span class="navbar-toggler-icon"></span>
     </button>
-      <span class="navbar-text me-3">Hello, <?php echo htmlspecialchars($name); ?></span>
       <a href="logout.php" class="btn btn-outline-light btn-sm">Logout</a>
     </div>
   </div>

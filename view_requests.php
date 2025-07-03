@@ -6,6 +6,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'treasurer') {
     header("Location: register_login.php");
     exit();
 }
+$role = $_SESSION['role'];
+if ($role === 'treasurer') {
+    include 'navbar_treasurer.php';
+} elseif ($role === 'member') {
+    include 'navbar_member.php';
+} elseif ($role === 'admin') {
+    include 'navbar_admin.php';
+}
 
 // Handle approval
 if (isset($_GET['approve']) || isset($_GET['reject'])) {
