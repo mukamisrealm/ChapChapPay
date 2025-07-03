@@ -6,7 +6,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'member') {
     header("Location: register_login.php");
     exit();
 }
-
+$role = $_SESSION['role'];
+if ($role === 'treasurer') {
+    include 'navbar_treasurer.php';
+} elseif ($role === 'member') {
+    include 'navbar_member.php';
+} elseif ($role === 'admin') {
+    include 'navbar_admin.php';
+}
 $message = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION['user_id'];
