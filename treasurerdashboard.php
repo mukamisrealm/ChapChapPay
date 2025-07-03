@@ -50,7 +50,7 @@ $name = $_SESSION['name'];
 
 <div class="container mt-4">
   <h2>Welcome, Treasurer <?php echo htmlspecialchars($name); ?>!</h2>
-
+</div>
 
     <!-- View Members -->
     <div class="col-md-4 mb-3">
