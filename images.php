@@ -20,8 +20,8 @@
       background: linear-gradient(to right, #87ceeb, #f0f8ff);
       height: 100vh;
       
-      align-items: flex-end;
-      justify-content: right;
+      align-items: center;
+      justify-content: center;
       font-family: 'Segoe UI', sans-serif;
     }
 

@@ -26,12 +26,15 @@ $usedMemory = $totalMemoryMB - $freeMemoryMB;
   <title>System Health Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f6f9;
-      margin: 0;
-      padding: 20px;
-    }
+   body {
+  font-family: 'Segoe UI', sans-serif;
+  background: url('photos\Teal.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 20px;
+  color: white;
+}
+
     h1 {
       text-align: center;
       color: #333;
