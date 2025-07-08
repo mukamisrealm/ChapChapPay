@@ -19,29 +19,77 @@
       height: 100vh;
       font-family: 'Segoe UI', sans-serif;
       color: white;
-      margin: 0;
-   position: relative;
+      position: relative;
     }
-   .center-content {
+
+    /* NAVBAR */
+    .navbar {
+      width: 100%;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05); /* subtle overlay */
       position: absolute;
-      top: 30%;
-      left: 55%; /* Moves content closer to turtle side */
-      transform: translate(-50%, -50%);
-      text-align: right;
+      top: 0;
+      left: 0;
+      z-index: 1000;
     }
 
-
-    .center-content h1 {
-      font-size: 3.2em;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-    }
-
-   .center-content p {
-      margin-top: 10px;
-      font-size: 1.1em;
+    .logo {
+      font-size: 1.5em;
       font-weight: bold;
+      color:  #333;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color:  #333;
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #f9c63f;
+    }
+
+    /* HERO SECTION */
+    .center-content {
+      position: absolute;
+      top: 45%;
+      left: 62%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      max-width: 500px;
+    }
+
+    .main-title {
+      font-size: 3.5em;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1.8em;
+      font-weight: 600;
+      color: #fdfd66;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+      margin-bottom: 10px;
+    }
+
+    .description {
+      font-size: 1em;
+      font-weight: 500;
       color: #000;
-      text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.4);
+      margin-bottom: 20px;
     }
 
     .btn {
@@ -49,7 +97,7 @@
       background-color: white;
       color: #000;
       padding: 10px 20px;
-      margin-top: 15px;
+      margin-top: 10px;
       margin-left: 10px;
       border-radius: 5px;
       text-decoration: none;
@@ -58,21 +106,32 @@
     }
 
     .btn:hover {
-      background-color:#f9c63f;
+      background-color: #f9c63f;
       color: #000;
-    }
-
-    h1 span {
-      color:rgb(255, 255, 0);
     }
   </style>
 </head>
 <body>
+
+  <!-- Navigation -->
+  <div class="navbar">
+    <div class="logo">ChapChapPay</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="help.php">Help</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
   <div class="center-content">
-    <h1>Welcome to <span style="color:rgb(255, 255, 0);">ChapChapPay</span></h1>
-    <p>Manage your Chama contributions with ease and transparency.</p>
+    <h1 class="main-title">Welcome</h1>
+    <h2 class="subtitle">To ChapChapPay</h2>
+    <p class="description">Manage your Chama contributions with ease and transparency.</p>
     <a href="register_login.php" class="btn">Login / Register</a>
     <a href="help.php" class="btn">Help</a>
   </div>
+
 </body>
 </html>
