@@ -28,7 +28,7 @@ $usedMemory = $totalMemoryMB - $freeMemoryMB;
   <style>
    body {
   font-family: 'Segoe UI', sans-serif;
-  background: url('photos\Teal.jpeg') no-repeat center center fixed;
+  background-color: #66bcb1;
   background-size: cover;
   margin: 0;
   padding: 20px;
@@ -47,7 +47,7 @@ $usedMemory = $totalMemoryMB - $freeMemoryMB;
       margin-top: 30px;
     }
     .card {
-      background: white;
+      background: #1f1f2e;
       border-radius: 10px;
       padding: 20px;
       width: 280px;
@@ -57,7 +57,7 @@ $usedMemory = $totalMemoryMB - $freeMemoryMB;
     .card h2 {
       margin-bottom: 10px;
       font-size: 20px;
-      color: #555;
+      color: white;
     }
     .stat {
       font-size: 2em;
@@ -69,6 +69,7 @@ $usedMemory = $totalMemoryMB - $freeMemoryMB;
   </style>
 </head>
 <body>
+   
   <h1>System Health Dashboard</h1>
   <div class="dashboard">
     <div class="card">

@@ -20,7 +20,7 @@
       background: #1f1f2e;
       border-radius: 20px;
       padding: 15px;
-      width: 900px;
+      width: 950px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.6);
     }
 
