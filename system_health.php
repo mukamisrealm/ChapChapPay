@@ -26,50 +26,113 @@ $usedMemory = $totalMemoryMB - $freeMemoryMB;
   <title>System Health Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-   body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #66bcb1;
-  background-size: cover;
-  margin: 0;
-  padding: 20px;
-  color: white;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    h1 {
-      text-align: center;
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #66bcb1;
+      margin: 0;
+      padding-top: 80px;
+      color: white;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      width: 100%;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
       color: #333;
     }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color:darkorange;
+    }
+
+    /* Page Header */
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
     .dashboard {
       display: flex;
       flex-wrap: wrap;
       gap: 30px;
       justify-content: center;
-      margin-top: 30px;
+      margin-top: 20px;
+      padding: 0 20px;
     }
+
     .card {
       background: #1f1f2e;
-      border-radius: 10px;
-      padding: 20px;
+      border-radius: 8px;
+      padding: 10px;
       width: 280px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       text-align: center;
     }
+
     .card h2 {
       margin-bottom: 10px;
       font-size: 20px;
       color: white;
     }
+
     .stat {
       font-size: 2em;
-      color: #009688;
+      color: #00e0c6;
     }
+
     canvas {
       max-width: 100%;
     }
   </style>
 </head>
 <body>
-   
+
+  <!-- Navigation Bar -->
+<div class="navbar">
+  <div class="logo">ChapChapPay</div>
+  <div class="nav-links">
+    <a href="admindashboard.php">Dashboard</a>
+    <a href="index.php">Home</a>
+    <a href="#about">About</a>
+    <a href="contact_us.php">Contact</a>
+    <a href="help.php">Help</a>
+  </div>
+</div>
+
+
+  <!-- System Health Dashboard -->
   <h1>System Health Dashboard</h1>
   <div class="dashboard">
     <div class="card">

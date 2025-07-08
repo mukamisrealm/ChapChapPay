@@ -5,21 +5,65 @@
   <meta charset="UTF-8">
   <title>ChapChapPay - Admin Backup</title>
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Segoe UI', sans-serif;
       background: #66bcb1;
       color: white;
+      margin: 0;
+      padding-top: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
     }
 
+    /* Navbar Styles */
+    .navbar {
+      width: 100%;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #f9c63f;
+    }
+
+    /* Backup Card */
     .backup-card {
       background: #1f1f2e;
       border-radius: 20px;
-      padding: 15px;
+      padding: 4px;
       width: 950px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.6);
     }
@@ -59,23 +103,22 @@
       font-size: 14px;
     }
 
-   .overview-item {
-  padding: 12px 20px;
-  border-radius: 30px;
-  margin-bottom: 15px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: inset 0 0 5px rgba(255,255,255,0.1), 0 4px 6px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease;
-  cursor: default;
-}
+    .overview-item {
+      padding: 12px 20px;
+      border-radius: 30px;
+      margin-bottom: 15px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: inset 0 0 5px rgba(255,255,255,0.1), 0 4px 6px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease;
+      cursor: default;
+    }
 
-.overview-item:hover {
-  transform: scale(1.02);
-}
-
+    .overview-item:hover {
+      transform: scale(1.02);
+    }
 
     .tasks { background-color: #082c59; color: #44baff; }
     .attachments { background-color: #3b1c4b; color: #d881f3; }
@@ -88,6 +131,20 @@
   </style>
 </head>
 <body>
+
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="logo">ChapChapPay</div>
+    <div class="nav-links">
+      <a href="admindashboard.php">Dashboard</a>
+      <a href="index.php">Home</a>
+      <a href="#about">About</a>
+      <a href="contact_us.php">Contact</a>
+      <a href="help.php">Help</a>
+    </div>
+  </div>
+
+  <!-- Backup Report Card -->
   <div class="backup-card">
     <h2>🛡️ Backup Reports</h2>
 
@@ -118,3 +175,4 @@
   </div>
 </body>
 </html>
+
