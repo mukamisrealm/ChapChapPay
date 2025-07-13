@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(0, 0, 0, 0.03);
+       background: rgba(0, 0, 0, 0.6);
       position: sticky;
       top: 0;
       z-index: 999;
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     .logo {
       font-size: 1.5em;
       font-weight: bold;
-      color: #333;
+      color: white;
     }
 
     .nav-links {
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     .nav-links a {
-      color: #333;
+      color:white;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.3s ease;

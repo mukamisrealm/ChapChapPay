@@ -120,7 +120,7 @@
       <a href="#">Home</a>
       <a href="#about">About</a>
       <a href="contact_us.php">Contact</a>
-      <a href="help.php">Help</a>
+      
     </div>
   </div>
 
