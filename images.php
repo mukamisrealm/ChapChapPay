@@ -1,6 +1,6 @@
 <!-- Background image -->
 <div class="background.img">
-  <img src="photos\Maori-style corner decoration featuring a turtle in blue and turquoise_.jpeg" alt="ChapChapPay background img" class="background.img">
+  <img src="photos\Maoori-style corner decoration featuring a turtle in blue and turquoise_.jpeg" alt="ChapChapPay background img" class="background.img">
 </div>
 
 <style>
