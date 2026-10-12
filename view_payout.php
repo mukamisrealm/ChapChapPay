@@ -2,6 +2,7 @@
 session_start();
 include 'db.php';
 
+// Auto-complete payouts whose scheduled date has passed
 $today = date('Y-m-d');
 $conn->query("UPDATE payouts SET status = 'completed' WHERE payout_date <= '$today' AND status = 'pending'");
 
@@ -13,13 +14,35 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['role'];
 
-if ($role === 'member') {
-    // Member sees only their payouts
-    $stmt = $conn->prepare("SELECT * FROM payouts WHERE user_id = ? ORDER BY payout_date DESC");
-    $stmt->bind_param("i", $user_id);
+// Check if payout_queue table exists to support rotational queue
+$table_check = $conn->query("SHOW TABLES LIKE 'payout_queue'");
+
+if ($table_check && $table_check->num_rows > 0) {
+    if ($role === 'member') {
+        $stmt = $conn->prepare("
+            SELECT q.queue_position, u.name, q.scheduled_date AS payout_date, q.status, NULL AS amount 
+            FROM payout_queue q 
+            JOIN users u ON q.user_id = u.id 
+            WHERE q.user_id = ? 
+            ORDER BY q.queue_position ASC
+        ");
+        $stmt->bind_param("i", $user_id);
+    } else {
+        $stmt = $conn->prepare("
+            SELECT q.queue_position, u.name, q.scheduled_date AS payout_date, q.status, NULL AS amount 
+            FROM payout_queue q 
+            JOIN users u ON q.user_id = u.id 
+            ORDER BY q.queue_position ASC
+        ");
+    }
 } else {
-    // Treasurer/Admin sees all payouts
-    $stmt = $conn->prepare("SELECT users.name, amount, payout_date, status FROM payouts JOIN users ON payouts.user_id = users.id ORDER BY payout_date DESC");
+    // Fallback to legacy payouts table
+    if ($role === 'member') {
+        $stmt = $conn->prepare("SELECT NULL AS queue_position, users.name, amount, payout_date, status FROM payouts JOIN users ON payouts.user_id = users.id WHERE user_id = ? ORDER BY payout_date DESC");
+        $stmt->bind_param("i", $user_id);
+    } else {
+        $stmt = $conn->prepare("SELECT NULL AS queue_position, users.name, amount, payout_date, status FROM payouts JOIN users ON payouts.user_id = users.id ORDER BY payout_date DESC");
+    }
 }
 
 $stmt->execute();
@@ -155,7 +178,7 @@ $result = $stmt->get_result();
 <body>
 
 <div class="app-card">
-  <!-- Top Blue Navbar with Full Sub-Links -->
+  <!-- Top Blue Navbar with Corrected Activity Links -->
   <nav class="navbar navbar-expand-lg navbar-dark navbar-blue">
     <div class="container-fluid p-0">
       <a class="navbar-brand fw-bold fs-4 me-4" href="<?= ($role === 'treasurer') ? 'treasurerdashboard.php' : (($role === 'admin') ? 'admindashboard.php' : 'memberdashboard.php'); ?>">ChapChapPay</a>
@@ -172,7 +195,7 @@ $result = $stmt->get_result();
             <li class="nav-item"><a class="nav-link" href="view_reports.php">Reports</a></li>
             <li class="nav-item"><a class="nav-link" href="view_requests.php">Requests</a></li>
             <li class="nav-item"><a class="nav-link" href="add_contrib.php">Add Contribution</a></li>
-            <li class="nav-item"><a class="nav-link active" href="schedule_payout.php">Payouts</a></li>
+            <li class="nav-item"><a class="nav-link active" href="view_payout.php">Payout Queue</a></li>
           <?php elseif ($role === 'admin'): ?>
             <li class="nav-item"><a class="nav-link" href="admindashboard.php">Dashboard</a></li>
             <li class="nav-item"><a class="nav-link active" href="view_payout.php">Payouts</a></li>
@@ -193,28 +216,30 @@ $result = $stmt->get_result();
 
   <!-- Main Content Area -->
   <div class="dashboard-content">
-    <h2 class="page-title">Payout Schedule</h2>
+    <h2 class="page-title">Payout Schedule & Queue</h2>
 
     <?php if ($result && $result->num_rows > 0): ?>
       <div class="table-container mb-4">
         <table class="table custom-table table-hover">
           <thead>
             <tr>
+              <th>Queue #</th>
               <?php if ($role !== 'member') echo "<th>Member Name</th>"; ?>
               <th>Amount (KES)</th>
-              <th>Date</th>
+              <th>Payout Date</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
             <?php while ($row = $result->fetch_assoc()): ?>
               <tr>
+                <td><?= $row['queue_position'] ? '#' . htmlspecialchars($row['queue_position']) : '-' ?></td>
                 <?php if ($role !== 'member') echo "<td>" . htmlspecialchars($row['name']) . "</td>"; ?>
-                <td><?= number_format($row['amount'], 2) ?></td>
+                <td><?= $row['amount'] ? number_format($row['amount'], 2) : 'Rotational Pool' ?></td>
                 <td><?= htmlspecialchars($row['payout_date']) ?></td>
                 <td>
-                  <?php if (strtolower($row['status']) === 'completed'): ?>
-                    <span class="badge bg-success">Completed</span>
+                  <?php if (strtolower($row['status']) === 'completed' || strtolower($row['status']) === 'paid'): ?>
+                    <span class="badge bg-success">Paid</span>
                   <?php else: ?>
                     <span class="badge bg-warning text-dark">Pending</span>
                   <?php endif; ?>
@@ -225,7 +250,7 @@ $result = $stmt->get_result();
         </table>
       </div>
     <?php else: ?>
-      <div class="alert alert-info rounded-3 mb-4">No payouts scheduled yet.</div>
+      <div class="alert alert-info rounded-3 mb-4">No payouts or rotational queue scheduled yet.</div>
     <?php endif; ?>
 
     <!-- Back to Dashboard Button -->

@@ -62,6 +62,17 @@ $name = $_SESSION['name'];
       padding: 15px 30px;
     }
 
+    .navbar-blue .nav-link {
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .navbar-blue .nav-link:hover,
+    .navbar-blue .nav-link.active {
+      color: #ffffff;
+    }
+
     .dashboard-content {
       padding: 30px;
       position: relative;
@@ -75,7 +86,7 @@ $name = $_SESSION['name'];
     }
 
     .card-widget {
-      background: #fffffff7;
+      background: #ffffff;
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       border: none;
@@ -94,12 +105,24 @@ $name = $_SESSION['name'];
 <body>
 
 <div class="app-card">
-  <!-- Top Blue Navbar -->
+  <!-- Top Blue Navbar with Full Treasurer Sub-Links -->
   <nav class="navbar navbar-expand-lg navbar-dark navbar-blue">
     <div class="container-fluid p-0">
-      <a class="navbar-brand fw-bold fs-4" href="#">ChapChapPay</a>
-      <div class="d-flex align-items-center gap-2">
-        <a href="index.php" class="btn btn-outline-light me-2">Home</a>
+      <a class="navbar-brand fw-bold fs-4 me-4" href="treasurerdashboard.php">ChapChapPay</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+          <li class="nav-item"><a class="nav-link active" href="treasurerdashboard.php">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="view_members.php">Manage Members</a></li>
+          <li class="nav-item"><a class="nav-link" href="add_fine.php">Add Fine</a></li>
+          <li class="nav-item"><a class="nav-link" href="view_fine.php">View Fines</a></li>
+          <li class="nav-item"><a class="nav-link" href="view_reports.php">Reports</a></li>
+          <li class="nav-item"><a class="nav-link" href="view_requests.php">Requests</a></li>
+          <li class="nav-item"><a class="nav-link" href="add_contrib.php">Add Contribution</a></li>
+          <li class="nav-item"><a class="nav-link" href="view_payout.php">Payout Queue</a></li>
+        </ul>
         <a href="logout.php" class="btn btn-outline-light">Logout</a>
       </div>
     </div>
@@ -201,28 +224,30 @@ $name = $_SESSION['name'];
         </div>
       </div>
 
-      <!-- Schedule Payouts -->
+      <!-- Generate Rotational Queue (Automated Randomization) -->
       <div class="col-md-4 mb-4">
         <div class="card text-center card-widget h-100">
           <div class="card-body d-flex flex-column justify-content-between p-4">
             <div>
-              <h5 class="card-title fs-5 mb-2">Payouts</h5>
-              <p class="card-text mb-4">Manage and schedule payouts.</p>
+              <h5 class="card-title fs-5 mb-2">Rotational Queue</h5>
+              <p class="card-text mb-4">Randomly shuffle members and generate a new payout rotation.</p>
             </div>
-            <div><a href="schedule_payout.php" class="btn btn-primary px-4">Schedule Payout</a></div>
+            <div>
+              <a href="generate_queue.php" class="btn btn-primary px-4" onclick="return confirm('Are you sure you want to shuffle members and generate a new payout rotation?');">Generate Queue</a>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- My Payouts -->
+      <!-- View Payout Queue -->
       <div class="col-md-4 mb-4">
         <div class="card text-center card-widget h-100">
           <div class="card-body d-flex flex-column justify-content-between p-4">
             <div>
-              <h5 class="card-title fs-5 mb-2">My Payouts</h5>
-              <p class="card-text mb-4">View payouts.</p>
+              <h5 class="card-title fs-5 mb-2">Payout Schedule</h5>
+              <p class="card-text mb-4">View active rotational queue and payout statuses.</p>
             </div>
-            <div><a href="view_payout.php" class="btn btn-primary px-4">View Payouts</a></div>
+            <div><a href="view_payout.php" class="btn btn-primary px-4">View Payout Queue</a></div>
           </div>
         </div>
       </div>
@@ -250,5 +275,7 @@ $name = $_SESSION['name'];
   </div>
 </div>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
