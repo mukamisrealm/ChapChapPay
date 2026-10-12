@@ -21,36 +21,70 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $result = $conn->query("SELECT * FROM support_requests ORDER BY created_at DESC");
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Support Requests - Admin</title>
+  <title>Support Requests - ChapChapPay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f8f9fa;
+    * {
       margin: 0;
-      padding-top: 80px;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    .navbar {
+    /* Soft purple outer frame background matching system theme */
+    body {
+      background: #8172f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* Dark inner container card matching the theme */
+    .app-card {
       width: 100%;
-      padding: 20px 40px;
+      max-width: 1200px;
+      min-height: 650px;
+      background-color: #061118;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Ambient radial glow effect */
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(111, 76, 255, 0.2) 0%, rgba(6, 17, 24, 0) 70%);
+      pointer-events: none;
+    }
+
+    /* Top Navigation Bar */
+    .navbar-custom {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(0, 0, 0, 0.6);
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1000;
+      padding: 25px 40px;
+      position: relative;
+      z-index: 10;
     }
 
     .logo {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: white;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
     }
 
     .nav-links {
@@ -59,86 +93,141 @@ $result = $conn->query("SELECT * FROM support_requests ORDER BY created_at DESC"
     }
 
     .nav-links a {
-      color: white;
+      color: #a0aec0;
       text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #ffffff;
+    }
+
+    /* Dashboard Content Wrapper */
+    .dashboard-content {
+      padding: 20px 40px 40px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .page-title {
+      color: #ffffff;
       font-weight: 700;
-      transition: color 0.3s ease;
+      margin-bottom: 25px;
     }
 
-    .nav-links a:hover {
-      color: #f9c63f;
+    /* Clean white table container */
+    .table-container {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 0;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
+    .custom-table {
+      margin-bottom: 0;
     }
 
-    h2 {
-      margin-bottom: 20px;
+    .custom-table th {
+      background-color: #f8f9fa;
+      color: #1a202c;
+      font-weight: 700;
+      border-bottom: 2px solid #dee2e6;
+      padding: 15px 20px;
     }
 
-    .alert {
-      margin-top: 15px;
-    }
-
-    table th, table td {
+    .custom-table td {
+      padding: 15px 20px;
+      color: #2d3748;
       vertical-align: middle;
+    }
+
+    /* Blue Action Button */
+    .btn-primary-custom {
+      background-color: #0d6efd;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s ease;
+    }
+
+    .btn-primary-custom:hover {
+      background-color: #0b5ed7;
+      color: #ffffff;
     }
   </style>
 </head>
 <body>
 
-<!-- Custom Navbar -->
-<div class="navbar">
-  <div class="logo">ChapChapPay</div>
-  <div class="nav-links">
-    <a href="admindashboard.php">Dashboard</a>
-    <a href="index.php">Home</a>
-    <a href="#about">About</a>
-    <a href="contact_us.php">Contact</a>
-    <a href="help.php">Help</a>
+<div class="app-card">
+  <!-- Navigation Bar -->
+  <nav class="navbar-custom">
+    <div class="logo">ChapChapPay</div>
+    <div class="nav-links">
+      <a href="admindashboard.php">Dashboard</a>
+      <a href="index.php">Home</a>
+      <a href="about.php">About</a>
+      <a href="contact_us.php">Contact</a>
+      <a href="help.php">Help</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="dashboard-content">
+    <h2 class="page-title">Support Requests</h2>
+
+    <?php if (isset($_SESSION['flash'])): ?>
+      <div class="alert alert-success rounded-3 mb-4">
+        <?= htmlspecialchars($_SESSION['flash']) ?>
+      </div>
+      <?php unset($_SESSION['flash']); ?>
+    <?php endif; ?>
+
+    <?php if ($result && $result->num_rows > 0): ?>
+      <div class="table-container mb-4">
+        <table class="table custom-table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name / ID</th>
+              <th>Subject</th>
+              <th>Message</th>
+              <th>Submitted At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php while ($row = $result->fetch_assoc()): ?>
+            <tr>
+              <td><?= htmlspecialchars($row['id']) ?></td>
+              <td><?= htmlspecialchars($row['user_id']) ?></td>
+              <td><?= htmlspecialchars($row['subject']) ?></td>
+              <td><?= nl2br(htmlspecialchars($row['message'])) ?></td>
+              <td><?= htmlspecialchars($row['created_at']) ?></td>
+            </tr>
+            <?php endwhile; ?>
+          </tbody>
+        </table>
+      </div>
+    <?php else: ?>
+      <div class="card p-4 rounded-3 text-center bg-white">
+        <p class="text-secondary mb-0">No support requests found.</p>
+      </div>
+    <?php endif; ?>
+
+    <!-- Back to Dashboard Button -->
+    <div class="text-center mt-4">
+      <a href="admindashboard.php" class="btn-primary-custom">Back to Dashboard</a>
+    </div>
   </div>
 </div>
 
-<!-- Main Content -->
-<div class="container mt-5">
-  <h2>Support Requests</h2>
-
-  <?php if (isset($_SESSION['flash'])): ?>
-    <div class="alert alert-success">
-      <?= htmlspecialchars($_SESSION['flash']) ?>
-    </div>
-    <?php unset($_SESSION['flash']); ?>
-  <?php endif; ?>
-
-  <?php if ($result && $result->num_rows > 0): ?>
-    <table class="table table-bordered table-striped">
-      <thead class="table-dark">
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Subject</th>
-          <th>Message</th>
-          <th>Submitted At</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php while ($row = $result->fetch_assoc()): ?>
-        <tr>
-          <td><?= htmlspecialchars($row['id']) ?></td>
-          <td><?= htmlspecialchars($row['user_id']) ?></td>
-          <td><?= htmlspecialchars($row['subject']) ?></td>
-          <td><?= nl2br(htmlspecialchars($row['message'])) ?></td>
-          <td><?= $row['created_at'] ?></td>
-        </tr>
-        <?php endwhile; ?>
-      </tbody>
-    </table>
-  <?php else: ?>
-    <p>No support requests found.</p>
-  <?php endif; ?>
-</div>
-
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
