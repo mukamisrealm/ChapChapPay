@@ -4,7 +4,6 @@ error_reporting(E_ALL);
 
 session_start();
 if (!isset($_SESSION['name']) || strtolower($_SESSION['role']) !== 'treasurer') {
-    // Not logged in or not a Treasurer
     header("Location: register_login.php");
     exit();
 }
@@ -16,29 +15,26 @@ $name = $_SESSION['name'];
 <head>
   <meta charset="UTF-8">
   <title>Treasurer Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
-<!-- ✅ NAVBAR START -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">ChapChapPay</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-      <a href="logout.php" class="btn btn-outline-light btn-sm">Logout</a>
+    <a href="index.php" class="btn btn-outline-light me-2">Home</a>
+    <div class="d-flex">
+      <a href="logout.php" class="btn btn-outline-light">Logout</a>
     </div>
   </div>
 </nav>
-<!-- ✅ NAVBAR END -->
 
 <div class="container mt-4">
   <h2>Welcome, Treasurer <?php echo htmlspecialchars($name); ?>!</h2>
 
-  <div class="row mt-4">
-    
-    <!-- View Members -->
+  <div class="row">
+    <!-- Manage Members -->
     <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
@@ -71,7 +67,7 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-    <!-- Reports -->
+    <!-- View Reports -->
     <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
@@ -82,7 +78,7 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-    <!-- Requests -->
+    <!-- View Member Requests -->
     <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
@@ -93,7 +89,7 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-    <!-- My Contribution Summary -->
+    <!-- Contribution Summary -->
     <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
@@ -115,7 +111,7 @@ $name = $_SESSION['name'];
       </div>
     </div>
 
-    <!-- Schedule Payout -->
+    <!-- Schedule Payouts -->
     <div class="col-md-4 mb-3">
       <div class="card text-center">
         <div class="card-body">
@@ -136,36 +132,29 @@ $name = $_SESSION['name'];
         </div>
       </div>
     </div>
-
   </div>
 
-   <!--  Support Request Form -->
-<div class="card mt-5">
-  <div class="card-body">
-    <h4 class="card-title">Need Help? Submit a Support Request</h4>
+  <!-- Support Request Form -->
+  <div class="card mt-5">
+    <div class="card-body">
+      <h4 class="card-title">Need Help? Submit a Support Request</h4>
 
-    <form action="../ChapChapPay/support_requests.php" method="POST">
-      <input type="hidden" name="name" value="<?php echo htmlspecialchars($name); ?>">
+      <form action="support_requests.php" method="POST">
+        <input type="hidden" name="name" value="<?php echo htmlspecialchars($name); ?>">
 
-      <div class="mb-3">
-        <label for="subject" class="form-label">Subject</label>
-        <input type="text" class="form-control" name="subject" id="subject" required>
-      </div>
-      <div class="mb-3">
-        <label for="message" class="form-label">Message</label>
-        <textarea class="form-control" name="message" id="message" rows="4" required></textarea>
-      </div>
-      <button type="submit" class="btn btn-info">Send Request</button>
-    </form>
-
+        <div class="mb-3">
+          <label for="subject" class="form-label">Subject</label>
+          <input type="text" class="form-control" name="subject" id="subject" required>
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea class="form-control" name="message" id="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-info">Send Request</button>
+      </form>
+    </div>
   </div>
-</div>
-<!-- End Support Form -->
 
-</div>
-
-</body>
-</html>
 </div>
 
 </body>

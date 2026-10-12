@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="nav-links">
       <a href="admindashboard.php">Dashboard</a>
       <a href="index.php">Home</a>
-      <a href="#about">About</a>
+      
       <a href="contact_us.php">Contact</a>
       <a href="help.php">Help</a>
     </div>

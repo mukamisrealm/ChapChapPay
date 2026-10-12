@@ -15,6 +15,7 @@ $freeMemory = trim(shell_exec("wmic os get FreePhysicalMemory /value"));
 $freeMemory = str_replace(["\r", "\n", "FreePhysicalMemory="], '', $freeMemory);
 $freeMemoryMB = round($freeMemory / 1024);
 
+// Fixed: Removed leading hyphens and added missing minus operators
 $usedDisk = round($totalSpace - $freeSpace);
 $usedMemory = $totalMemoryMB - $freeMemoryMB;
 ?>
@@ -73,7 +74,7 @@ $usedMemory = $totalMemoryMB - $freeMemoryMB;
     }
 
     .nav-links a:hover {
-      color:darkorange;
+      color: darkorange;
     }
 
     /* Page Header */
@@ -120,24 +121,22 @@ $usedMemory = $totalMemoryMB - $freeMemoryMB;
 <body>
 
   <!-- Navigation Bar -->
-<div class="navbar">
-  <div class="logo">ChapChapPay</div>
-  <div class="nav-links">
-    <a href="admindashboard.php">Dashboard</a>
-    <a href="index.php">Home</a>
-    <a href="#about">About</a>
-    <a href="contact_us.php">Contact</a>
-    <a href="help.php">Help</a>
+  <div class="navbar">
+    <div class="logo">ChapChapPay</div>
+    <div class="nav-links">
+      <a href="admindashboard.php">Dashboard</a>
+      <a href="index.php">Home</a>
+      <a href="contact_us.php">Contact</a>
+      <a href="help.php">Help</a>
+    </div>
   </div>
-</div>
-
 
   <!-- System Health Dashboard -->
   <h1>System Health Dashboard</h1>
   <div class="dashboard">
     <div class="card">
       <h2>CPU Load</h2>
-      <div class="stat"><?php echo $cpuLoad; ?>%</div>
+      <div class="stat"><?php echo htmlspecialchars($cpuLoad); ?>%</div>
     </div>
     <div class="card">
       <h2>Disk Usage</h2>

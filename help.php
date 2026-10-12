@@ -63,7 +63,7 @@
     <div class="nav-links">
       
       <a href="index.php">Home</a>
-      <a href="#about">About</a>
+      <a href="about.php">About</a>
       <a href="contact_us.php">Contact</a>
       <a href="help.php">Help</a>
     </div>
