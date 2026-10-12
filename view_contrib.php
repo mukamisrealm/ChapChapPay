@@ -99,7 +99,7 @@ $result = $stmt->get_result();
 
     /* Clean white table styling */
     .table-container {
-      background: #ffffff;
+      background: #ffffffb3;
       border-radius: 12px;
       padding: 0;
       overflow: hidden;

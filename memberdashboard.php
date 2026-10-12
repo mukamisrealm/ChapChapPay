@@ -79,7 +79,7 @@ $name = $_SESSION['name'];
 
     /* White card widgets */
     .card-widget {
-      background: #ffffffb3;
+      background: #fffffff7;
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       border: none;

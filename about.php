@@ -3,140 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <title>About Us - ChapChapPay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #1e1e1e;
-      color: #fff;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    .navbar {
-      background-color: #2c2c2c;
-      padding: 15px 30px;
+    body {
+      background: #8172f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .app-card {
+      width: 100%;
+      max-width: 1000px;
+      background-color: #061118;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(111, 76, 255, 0.2) 0%, rgba(6, 17, 24, 0) 70%);
+      pointer-events: none;
+    }
+
+    .navbar-custom {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 25px 40px;
     }
 
-    .navbar a {
-      color: #fff;
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .nav-links a {
+      color: #a0aec0;
       text-decoration: none;
-      margin: 0 15px;
+      font-weight: 500;
+      margin-left: 20px;
     }
 
-    .navbar .btn {
-      background-color: #ffc107;
-      color: #000;
-      padding: 8px 15px;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
+    .nav-links a:hover {
+      color: #ffffff;
     }
 
-    .about-section {
-      padding: 50px 80px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: url('photos/Teal.jpeg') no-repeat center center fixed;
-      background-size: cover;
+    .content-area {
+      padding: 20px 40px 40px;
+      position: relative;
+      z-index: 10;
     }
 
-    .about-text {
-      max-width: 50%;
-    }
-
-    .about-text h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
-
-    .about-text h3 {
-      color: #00bcd4;
-      margin-bottom: 15px;
-    }
-
-    .about-text p {
-      font-size: 16px;
-      line-height: 1.8;
-    }
-
-    .about-image img {
-      width: 350px;
-      border-radius: 10px;
-      border: 2px solid #ffc107;
-    }
-
-    .stats {
-      background-color: rgba(0, 0, 0, 0.85);
+    .info-card {
+      background: #fffffff7;
+      border-radius: 12px;
       padding: 30px;
-      display: flex;
-      justify-content: space-around;
-      color: #fff;
-    }
-
-    .stat-box {
-      text-align: center;
-    }
-
-    .stat-box h2 {
-      color: #ffc107;
-      font-size: 36px;
-      margin: 5px 0;
-    }
-
-    .stat-box small {
-      color: #bbb;
+      color: #2d3748;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
 
-  <div class="navbar">
-    <div>
-        <div class="logo">ChapChapPay</div>
-       
-      <a href="index.php"><strong>Home</strong></a>
+<div class="app-card">
+  <!-- Navbar -->
+  <nav class="navbar-custom">
+    <div class="logo">ChapChapPay</div>
+    <div class="nav-links">
+      <a href="index.php">Home</a>
+      <a href="about.php" style="color: #fffffff7; font-weight: 700;">About</a>
       <a href="contact_us.php">Contact</a>
-      <a href="about.php">About</a>
+      <a href="help.php">Help</a>
     </div>
-    <div>
-      <a href="logout.php" class="btn">Logout</a>
-    </div>
-  </div>
+  </nav>
 
-  <div class="about-section">
-    <div class="about-text">
-      <h1>About Us</h1>
-      <h3>Empowering Chamas Through Simple Technology</h3>
-      <p>
-        ChapChapPay is a fast, efficient, and transparent financial management system built specifically for Chamas and small community groups. We believe that group savings and investments should be simple, secure, and accessible. 
-        Our platform enables members to track contributions, manage expenses, schedule payouts, and generate reports seamlessly.
-        With ChapChapPay, we’re bringing trust, order, and convenience to group finances.
+  <!-- Content -->
+  <div class="content-area">
+    <div class="info-card">
+      <h2 class="fw-bold text-dark mb-3">About ChapChapPay</h2>
+      <p class="lead text-secondary">
+        ChapChapPay is a modern financial tracking and management system designed specifically for Chama groups.
       </p>
-    </div>
-    <div class="about-image">
-      <div class="about-icon"></div>
-      <large>🪙💸</large>
-    </div>
-  </div>
-
-  <div class="stats">
-    <div class="stat-box">
-      <small>Number of Transactions</small>
-      <h2>5</h2>
-    </div>
-    <div class="stat-box">
-      <small>Established Year</small>
-      <h2>2025</h2>
-    </div>
-    <div class="stat-box">
-      <small>Number of Users</small>
-      <h2>6</h2>
+      <hr class="my-4">
+      <p>
+        Our platform simplifies contribution tracking, automated fine calculations, payout schedules, and member requests with total transparency and security.
+      </p>
+      <div class="mt-4">
+        <a href="register_login.php" class="btn btn-primary fw-bold px-4">Get Started</a>
+      </div>
     </div>
   </div>
+</div>
 
 </body>
 </html>
