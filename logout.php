@@ -6,12 +6,11 @@ include 'db.php';
 if (isset($_SESSION['name']) && !empty($_SESSION['name'])) {
     $username = $_SESSION['name'];
     $activity = "Logged out of the system";
-    $status = "DONE";
 
-    // Insert logout entry into activity_logs using current system timestamp
-    $stmt = $conn->prepare("INSERT INTO activity_logs (username, activity, status, timestamp) VALUES (?, ?, ?, NOW())");
+    // Insert logout entry without status column
+    $stmt = $conn->prepare("INSERT INTO activity_logs (username, activity, timestamp) VALUES (?, ?, NOW())");
     if ($stmt) {
-        $stmt->bind_param("sss", $username, $activity, $status);
+        $stmt->bind_param("ss", $username, $activity);
         $stmt->execute();
         $stmt->close();
     }
